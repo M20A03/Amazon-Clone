@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ==========================================================================
+     Design Tokens: Color Palette (WCAG 2.1 AA Compliant)
+     ========================================================================== */
+  --color-amazon-navy: #131921;
+  --color-amazon-dark: #232f3e;
+  --color-amazon-light-navy: #37475a;
+  --color-amazon-amber: #febd69;
+  --color-amazon-amber-hover: #f3a847;
+  --color-amazon-orange: #ff9900;
+  --color-amazon-orange-hover: #e88b00;
+  --color-amazon-yellow: #ffd814;
+  --color-amazon-yellow-hover: #f7ca00;
+  --color-amazon-link: #007185;
+  --color-amazon-price: #b12704;
+  --color-amazon-deal-red: #cc0c39;
+
+  /* Surfaces & Backgrounds */
+  --color-surface: #ffffff;
+  --color-surface-secondary: #f7f8f8;
+  --color-surface-tertiary: #eaeded;
+  --color-surface-elevated: #ffffff;
+  --color-background: #eaeded;
+  --color-background-subtle: #f0f2f2;
+
+  /* Borders */
+  --color-border: #d5d9d9;
+  --color-border-strong: #888c8c;
+
+  /* Typography */
+  --color-text-primary: #0f1111;
+  --color-text-secondary: #565959;
+  --color-text-muted: #6b7280;
+  --color-text-inverse: #ffffff;
+
+  /* System Status */
+  --color-success: #067d62;
+  --color-warning: #c45500;
+  --color-error: #ba0933;
+  --color-info: #007185;
+
+  /* Focus & Elevation */
+  --focus-ring: #e77600;
+  --focus-ring-offset: #ffffff;
+
+  /* Spatial Scale (8px/4px Grid) */
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Typography Modular Scale (Minor Second 1.067 / Major Second 1.125) */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.8125rem;  /* 13px */
+  --font-size-base: 0.875rem; /* 14px */
+  --font-size-md: 1rem;       /* 16px */
+  --font-size-lg: 1.125rem;   /* 18px */
+  --font-size-xl: 1.25rem;    /* 20px */
+  --font-size-2xl: 1.5rem;    /* 24px */
+  --font-size-3xl: 1.75rem;   /* 28px */
+
+  --font-sans: "Inter", "Amazon Ember", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* ==========================================================================
+   Dark Theme Design Tokens
+   ========================================================================== */
+.dark {
+  --color-amazon-navy: #0d1117;
+  --color-amazon-dark: #161b22;
+  --color-amazon-light-navy: #21262d;
+  --color-amazon-amber: #febd69;
+  --color-amazon-amber-hover: #f3a847;
+  --color-amazon-orange: #ff9900;
+  --color-amazon-orange-hover: #e88b00;
+  --color-amazon-yellow: #f0c14b;
+  --color-amazon-yellow-hover: #e5b035;
+  --color-amazon-link: #58a6ff;
+  --color-amazon-price: #ff7b72;
+  --color-amazon-deal-red: #ff4d6a;
+
+  /* Dark Surfaces & Backgrounds */
+  --color-surface: #161b22;
+  --color-surface-secondary: #0d1117;
+  --color-surface-tertiary: #21262d;
+  --color-surface-elevated: #1f242c;
+  --color-background: #090d13;
+  --color-background-subtle: #121820;
+
+  /* Dark Borders */
+  --color-border: #30363d;
+  --color-border-strong: #6e7681;
+
+  /* Dark Typography */
+  --color-text-primary: #f0f6fc;
+  --color-text-secondary: #8b949e;
+  --color-text-muted: #6e7681;
+  --color-text-inverse: #0d1117;
+
+  /* Dark Status */
+  --color-success: #3fb950;
+  --color-warning: #d29922;
+  --color-error: #f85149;
+  --color-info: #58a6ff;
+
+  --focus-ring: #f3a847;
+  --focus-ring-offset: #0d1117;
+}
+
+/* ==========================================================================
+   Base Styles & Accessibility (Zero FOUC & Focus Rings)
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-sans);
+  color-scheme: light dark;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Accessible focus ring on all interactive elements */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(254, 189, 105, 0.3);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
+
+/* Screen reader utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Product Card Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}

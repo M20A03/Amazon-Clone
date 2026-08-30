@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Clone</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" xintegrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            font-family: 'Inter', arial;
+            border: border-box;
+        }
+        body {
+            background-color: #f97204;
+        }
+        .navbar {
+            height: 60px;
+            background-color: #0f1111;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .nav-logo {
+            height: 50px;
+            width: 140px; 
+        }
+        .logo {
+            background-image: url("https://www.vectorlogo.zone/logos/amazon/amazon-ar21.svg");
+            background-size: contain;
+            background-repeat: no-repeat;
+            height: 50px;
+            width: 100%;
+            filter: brightness(0) invert(1);
+        }
+
+        .border {
+            border: 2px solid transparent;
+            border-radius: 4px;
+            padding: 5px;
+            cursor: pointer;
+        }
+        .border:hover {
+            border: 1.5px solid white;
+        }
+        
+        .navaddress {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .addfirst {
+            color: #cccccc;
+            font-size: 0.85rem;
+            margin-left: 17px;
+        }
+        .addsec {
+            color: #ffffff;
+            font-size: 1rem;
+            margin-left: 3px;
+        }
+        .addicon {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .addicon i {
+            color: #ff9900; /* Orange color for the icon */
+            margin-right: 5px;
+        }
+        .location-select {
+            background-color: transparent;
+            color: white;
+            border: none;
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 0;
+            cursor: pointer;
+        }
+        .navsearch {
+            display: flex;
+            justify-content: space-evenly;
+            background-color: rgb(255, 209, 2);
+            width: 620px;
+            height: 40px;
+            border-radius: 4px;
+        }
+        .search-select {
+            background-color: #f3f3f3;
+            width: 50px;
+            text-align: center;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+        .search-input {
+            width: 100%;
+            font-size: 1rem;
+            border: none;
+            padding: 0 10px;
+        }
+        .searchicon {
+            width: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            background-color: #febd68;
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            color: #0f1111;
+            cursor: pointer;
+        }
+
+        span {
+            font-size: 0.7rem;
+        }
+        .nav-second {
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .navsearch:hover {
+            border: 4px solid #febd68;
+        }
+
+        .nav-cart {
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            position: relative;
+            color: #ff9900;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: transform 0.2s ease-in-out;
+        }
+        .nav-cart:hover {
+            transform: scale(1.05);
+        }
+        .nav-cart i {
+            font-size: 30px;
+        }
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -15px;
+            background: red;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 50%;
+            padding: 2px 6px;
+        }
+
+        /* PANEL STARTS */
+        .panel {
+            height: 40px;
+            background-color: #222f3d;
+            display: flex;
+            color: white;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 15px;
+            padding-left: 20px;
+        }
+        .panel-link {
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            height: 100%;
+            padding: 0 5px;
+            white-space: nowrap;
+        }
+        .panel-link:hover {
+            border: 1.5px solid white;
+        }
+        #panel-electronics {
+            margin-left: auto;
+            padding-right: 20px;
+        }
+        .hero-section {
+            background-image: url("https://images-eu.ssl-images-amazon.com/images/G/31/img24/Beauty/GW/Jupiter/leadup/Dealsrevealed/Leadup_PC-min._CB800835047_.jpg");
+            background-size: cover;
+            height: 350px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            margin-bottom: 20px;
+        }
+        .hero-msg {
+            background-color: white;
+            color: #0f1111;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80%;
+            margin-bottom: 25px;
+        }
+        .hero-msg a {
+            color: #007185;
+            text-decoration: none;
+        }
+
+        .shop-container {
+            padding: 0 10px;
+            background-color: #f97204;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .shop-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+        }
+        .box {
+            height: 400px;
+            width: 23%;
+            background-color: white;
+            padding: 20px 0px 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in;
+        }
+        .box-img {
+            height: 300px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+        }
+        .box-content {
+            margin: 0 1rem;
+        }
+        .box-content .add-to-cart-btn {
+            color: #007185;
+            cursor: pointer;
+            border: none;
+            background: none;
+            padding: 0;
+            font-size: 1rem;
+            text-decoration: underline;
+        }
+        .box-content .product-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .service-link {
+            display: block;
+            margin-top: 10px;
+            padding: 10px;
+            color: #0f1111;
+            background-color: #febd68;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        #noResultsMsg {
+            display: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        footer {
+            color: #e2e7e6;
+            text-align: center;
+            background-color: black;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        footer i {
+            margin-right: 5px;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        footer a {
+            color: #e2e7e6;
+            text-decoration: none;
+        }
+
+        /* Dark Mode */
+        body.dark-mode {
+            background-color: #0f1111;
+            color: white;
+        }
+        body.dark-mode .navbar,
+        body.dark-mode .panel,
+        body.dark-mode footer {
+            background-color: #1a1a1a;
+        }
+        body.dark-mode .box {
+            background-color: #222;
+            color: white;
+        }
+        body.dark-mode .box-content h2 {
+            color: white;
+        }
+        body.dark-mode .box-content .add-to-cart-btn {
+            color: #febd68;
+        }
+
+        /* Back to top button */
+        #backToTop {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #febd68;
+            color: #0f1111;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+            transition: opacity 0.3s ease;
+        }
+        #backToTop:hover {
+            opacity: 0.8;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: white;
+            color: #0f1111;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .dark-mode .modal-content {
+            background-color: #222;
+            color: white;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal-content .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #aaa;
+            border: none;
+            background: none;
+        }
+        .modal-content h3 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+        .cart-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .dark-mode .cart-item {
+            border-bottom: 1px solid #444;
+        }
+        .cart-item-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        .cart-item-price {
+            font-weight: bold;
+        }
+        .remove-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+        .remove-btn:hover {
+            background-color: #c0392b;
+        }
+        .cart-total {
+            text-align: right;
+            font-size: 1.4rem;
+            font-weight: bold;
+            padding-top: 20px;
+            border-top: 2px solid #333;
+        }
+        .dark-mode .cart-total {
+            border-top: 2px solid #fff;
+        }
+        .empty-cart-msg {
+            text-align: center;
+            font-style: italic;
+            color: #888;
+        }
+
+        .cart-notification {
+            color: #4CAF50;
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+        .cart-notification.remove {
+            color: #e74c3c;
+        }
+
+        .proceed-btn {
+            background-color: #febd68;
+            color: #0f1111;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+        .proceed-btn:hover {
+            background-color: #ffb74d;
+        }
+
+        /* Toast notification styles */
+        .toast-notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            font-size: 1rem;
+            z-index: 1001;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+        .toast-notification.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #febd68;
+            box-shadow: 0 0 5px rgba(254, 189, 104, 0.5);
+        }
+        .submit-btn {
+            background-color: #febd68;
+            color: #0f1111;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s;
+        }
+        .submit-btn:hover {
+            background-color: #ffb74d;
+        }
+
+        .return-page-content {
+            padding: 20px;
+            font-size: 1.1rem;
+        }
+        #orderHistoryList, #trackingDetails {
+            display: block;
+        }
+        .order-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .order-item:hover {
+            transform: translateY(-2px);
+        }
+        .order-item h4 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+        }
+        .order-item ul {
+            list-style: disc;
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        .order-item ul li {
+            margin-bottom: 5px;
+        }
+        .order-item .track-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #0f1111;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .order-item .track-btn:hover {
+            opacity: 0.8;
+        }
+        .dark-mode .order-item {
+            background-color: #333;
+            border: 1px solid #444;
+        }
+        /* New CSS for service modal content */
+        .service-content p {
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        .service-content ul {
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+        .service-content ul li {
+            list-style-type: disc;
+            margin-bottom: 5px;
+        }
+        .service-content a {
+            color: #007185;
+            text-decoration: underline;
+        }
+
+        /* Location Modal Specific Styles */
+        .country-list-modal {
+            background-color: white;
+            color: #0f1111;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 90%;
+        }
+        .country-list-modal h4 {
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .country-list {
+            list-style: none;
+            padding: 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .country-list li {
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 1px solid #ddd;
+            transition: background-color 0.2s;
+        }
+        .country-list li:hover {
+            background-color: #f3f3f3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- NAVBAR STARTS -->
+        <div class="navbar">
+            <div class="nav-logo border">
+                <div class="logo" role="img" aria-label="Amazon Logo"></div>
+            </div>
+
+            <div class="navaddress border">
+                <p class="addfirst">Deliver to</p>
+                <div class="addicon" id="locationBtn">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span class="addsec" id="selectedCountry">India</span>
+                </div>
+            </div>
+
+            <div class="navsearch">
+                <select class="search-select">
+                    <option>All</option>
+                </select>
+                <input placeholder="Search Amazon" class="search-input">
+                <div class="searchicon"><i class="fa-solid fa-magnifying-glass"></i></div>
+            </div>
+
+            <div class="nav-signin border" id="signInBtn">
+                <p><span id="signInText">Hello, Sign in</span></p>
+                <p class="nav-second" id="accountText">Account & Lists</p>
+            </div>
+
+            <div class="nav-return border" id="returnsBtn">
+                <p><span>Returns</span></p>
+                <p class="nav-second">And Orders</p>
+            </div>
+
+            <div class="nav-cart border" id="cartBtn">
+                <i class="fa-solid fa-cart-shopping"></i>
+                Cart <span class="cart-count" id="cartCount">0</span>
+            </div>
+
+            <!-- Dark Mode Toggle -->
+            <div class="border">
+                <button id="darkToggle" style="padding:6px 10px; border-radius:6px; cursor:pointer; background:none; border:none;">🌙</button>
+            </div>
+        </div>
+        <!-- NAVBAR ENDS -->
+        <marquee style="background-color: #ff9100; color:#000000; font-size: 20px; animation: infinite;">AMAZON GREAT INDIAN FEST</marquee>
+
+        <div class="panel">
+            <p class="panel-link border" id="panel-all"><i class="fa-solid fa-bars"></i> All</p>
+            <p class="panel-link border" id="panel-deals">Today's Deals</p>
+            <p class="panel-link border" id="panel-service">Customer Service</p>
+            <p class="panel-link border" id="panel-registry">Registry</p>
+            <p class="panel-link border" id="panel-gifts">Gift Cards</p>
+            <p class="panel-link border" id="panel-sell">Sell</p>
+            <p class="panel-link border" id="panel-electronics">Shop Deals In Electronics</p>
+        </div>
+    </header>
+
+    <div class="hero-section">
+        <div class="hero-msg">
+            <p>You are on amazon.com. You can also shop on Amazon India for millions of products with fast local delivery. <a href="https://www.amazon.in" target="_blank">Click here to go to amazon.in</a></p>
+        </div>
+    </div>
+
+    <!-- SHOP CONTAINER -->
+    <div class="shop-container">
+        <h2 id="sectionTitle" class="section-title">Home</h2>
+        <div id="dynamicShopContent" class="shop-section">
+            <!-- Product boxes will be dynamically added here -->
+        </div>
+        <p id="noResultsMsg">No results found.</p>
+    </div>
+
+    <footer>
+        <br><br>
+        made with &#x2661; <br>
+        &#169;copyright of AMAZON <br> <br><br>
+        <p><i class="fa-brands fa-instagram"></i><a href="https://www.instagram.com/_awaisthetics_" target="_blank">_awaisthetics_</a></p>
+        <p><i class="fa-brands fa-instagram"></i><a href="https://www.instagram.com/subh_notokay" target="_blank">subh_notokay</a></p>
+        <p><i class="fa-brands fa-instagram"></i><a href="https://www.instagram.com/nihittt10" target="_blank">nihittt10</a></p>
+        <p><i class="fa-brands fa-instagram"></i><a href="#" target="_blank">Neha</a></p>
+        <p><i class="fa-brands fa-instagram"></i><a href="#" target="_blank">Mayank</a></p>
+        <br><br>
+        <p><i class="fa-solid fa-house"></i><a href="https://ypr.christuniversity.in/" target="_blank">Christ University YPR</a></p>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="backToTop">⬆ Top</button>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeCartBtn">&times;</button>
+            <h3>Your Cart</h3>
+            <p id="cartNotification" class="cart-notification"></p>
+            <ul id="cartList" class="cart-list">
+                <!-- Cart items will be dynamically added here -->
+            </ul>
+            <p id="emptyCartMsg" class="empty-cart-msg" style="display: none;">Your cart is empty.</p>
+            <div class="cart-total">
+                <p>Subtotal: <span id="cartTotal">₹0.00</span></p>
+            </div>
+            <button class="proceed-btn" id="proceedToPaymentBtn">Proceed to Payment</button>
+        </div>
+    </div>
+    
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" id="closePaymentBtn">&times;</button>
+            <h3>Payment Details</h3>
+            <form id="paymentForm">
+                <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" id="cardNumber" placeholder="1234-5678-9012-3456" required>
+                </div>
+                <div class="form-group">
+                    <label for="cardName">Name on Card</label>
+                    <input type="text" id="cardName" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="expiryDate">Expiry Date</label>
+                    <input type="text" id="expiryDate" placeholder="MM/YY" required>
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" placeholder="123" required>
+                </div>
+                <button type="submit" class="submit-btn">Pay Now</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div id="signUpModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeSignUpBtn">&times;</button>
+            <h3>Create Account</h3>
+            <form id="signUpForm">
+                <div class="form-group">
+                    <label for="signUpName">Your Name</label>
+                    <input type="text" id="signUpName" required>
+                </div>
+                <div class="form-group">
+                    <label for="signUpEmail">Email</label>
+                    <input type="email" id="signUpEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="signUpPassword">Password</label>
+                    <input type="password" id="signUpPassword" required>
+                </div>
+                <button type="submit" class="submit-btn">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Customer Service Modal (reused for other content) -->
+    <div id="customerServiceModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeCustomerServiceBtn">&times;</button>
+            <h3 id="serviceTitle"></h3>
+            <div id="serviceContent" class="service-content">
+                <!-- Content will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Returns & Orders Modal -->
+    <div id="returnsModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" id="closeReturnsBtn">&times;</button>
+            <h3>Returns & Orders</h3>
+            <div class="return-page-content" id="orderHistoryView">
+                <p>Welcome to your Returns & Orders page. Here you can see your past orders.</p>
+                <div style="margin-top: 20px;">
+                    <div id="orderHistoryList">
+                        <!-- Order history will be dynamically loaded here -->
+                    </div>
+                    <p id="noOrdersMsg" style="text-align:center; font-style: italic; color: #888; display: none;">You have no past orders.</p>
+                </div>
+            </div>
+            <div class="return-page-content" id="trackingDetailsView" style="display: none;">
+                <p>Here, you can track the status of your recent orders.</p>
+                <div style="display:flex; justify-content:center; align-items:center; margin-top:10px;">
+                    <img src="https://placehold.co/100x100/febd68/0f1111?text=🚚" alt="Delivery Truck" style="border-radius:8px;">
+                </div>
+                <p style="text-align: center; margin-top: 15px;">Your package is out for delivery and is expected to arrive by <strong id="deliveryTime"></strong>.</p>
+                <p style="text-align: center; margin-top: 5px; font-size: 0.9rem; color: #666;">(Estimated arrival is 2 hours from current time)</p>
+                <p style="text-align: center; margin-top: 15px;">Last Updated: <strong id="lastUpdatedTime"></strong></p>
+                <button class="submit-btn" id="backToOrdersBtn" style="margin-top: 20px;">Back to Orders</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Location Modal -->
+    <div id="locationModal" class="modal">
+        <div class="modal-content country-list-modal">
+            <button class="close-btn" id="closeLocationBtn">&times;</button>
+            <h4>Choose your location</h4>
+            <ul id="countryList" class="country-list">
+                <!-- Country list will be dynamically populated here -->
+            </ul>
+        </div>
+    </div>
+
+
+    <!-- Toast Notification for Add to Cart -->
+    <div id="toastNotification" class="toast-notification"></div>
+
+    <!-- ✅ JavaScript -->
+    <script>
+        const cartModal = document.getElementById("cartModal");
+        const paymentModal = document.getElementById("paymentModal");
+        const signUpModal = document.getElementById("signUpModal");
+        const returnsModal = document.getElementById("returnsModal");
+        const customerServiceModal = document.getElementById("customerServiceModal");
+        const locationModal = document.getElementById("locationModal");
+
+        const cartList = document.getElementById("cartList");
+        const cartTotalSpan = document.getElementById("cartTotal");
+        const emptyCartMsg = document.getElementById("emptyCartMsg");
+        const cartCountSpan = document.getElementById("cartCount");
+
+        const cartBtn = document.getElementById("cartBtn");
+        const returnsBtn = document.getElementById("returnsBtn");
+        const locationBtn = document.getElementById("locationBtn");
+        const dealsBtn = document.getElementById("dealsBtn");
+
+        const closeCartBtn = document.getElementById("closeCartBtn");
+        const closePaymentBtn = document.getElementById("closePaymentBtn");
+        const closeSignUpBtn = document.getElementById("closeSignUpBtn");
+        const closeReturnsBtn = document.getElementById("closeReturnsBtn");
+        const closeCustomerServiceBtn = document.getElementById("closeCustomerServiceBtn");
+        const closeLocationBtn = document.getElementById("closeLocationBtn");
+
+        const proceedToPaymentBtn = document.getElementById("proceedToPaymentBtn");
+        const paymentForm = document.getElementById("paymentForm");
+        const signUpForm = document.getElementById("signUpForm");
+        const signInBtn = document.getElementById("signInBtn");
+        const signInText = document.getElementById("signInText");
+        const accountText = document.getElementById("accountText");
+        const searchInput = document.querySelector(".search-input");
+        const searchIcon = document.querySelector(".searchicon");
+        const noResultsMsg = document.getElementById("noResultsMsg");
+        const darkToggle = document.getElementById("darkToggle");
+        const backToTop = document.getElementById("backToTop");
+        const toastNotification = document.getElementById("toastNotification");
+        const cartNotification = document.getElementById("cartNotification");
+        const dynamicShopContent = document.getElementById("dynamicShopContent");
+        const sectionTitle = document.getElementById("sectionTitle");
+        
+        // Returns and Orders specific elements
+        const orderHistoryList = document.getElementById("orderHistoryList");
+        const noOrdersMsg = document.getElementById("noOrdersMsg");
+        const orderHistoryView = document.getElementById("orderHistoryView");
+        const trackingDetailsView = document.getElementById("trackingDetailsView");
+        const orderIdSpan = document.getElementById("orderId");
+        const deliveryTimeSpan = document.getElementById("deliveryTime");
+        const lastUpdatedTimeSpan = document.getElementById("lastUpdatedTime");
+        const backToOrdersBtn = document.getElementById("backToOrdersBtn");
+
+        // Customer Service specific elements
+        const serviceTitle = document.getElementById("serviceTitle");
+        const serviceContent = document.getElementById("serviceContent");
+
+        // Location specific elements
+        const selectedCountrySpan = document.getElementById("selectedCountry");
+        const countryListUl = document.getElementById("countryList");
+        const countries = ["India", "USA", "UK", "Canada", "Australia", "Germany", "France", "Japan", "Brazil"];
+
+
+        let cart = [];
+        let isLoggedIn = false;
+        let userName = "";
+        let trackingInterval;
+        let userOrders = []; // Array to store completed orders
+
+        // Data for dynamic sections
+        const productsData = {
+            "Home": [
+                { title: "Health & Personal Care", image: 'amzn15.jpg', price: 825.50 },
+                { title: "Clothing", image: 'amzn6.jpg', price: 745.00 },
+                { title: "Furniture", image: 'amzn7.webp', price: 18120.00 },
+                { title: "Electronics", image: 'amzn8.webp', price: 62250.00 },
+                { title: "Cosmetics", image: 'amzn16.jpeg', price: 1435.75 },
+                { title: "Toys", image: 'amzn17.webp', price: 815.20 },
+                { title: "Footwear", image: 'https://m.media-amazon.com/images/I/51s1Px2ekOL.jpg', price: 1260.99 },
+                { title: "Home Appliances", image: 'https://m.media-amazon.com/images/S/aplus-media/sota/56e60349-0f4f-4c5d-b1de-ee272f99743c.__CR0,0,600,450_PT0_SX600_V1___.jpg', price: 11185.40 },
+                { title: "Books & Literature", image: 'https://m.media-amazon.com/images/I/51SVi8gKijL._SR290,290_.jpg', price: 1212.50 },
+                { title: "Gardening Supplies", image: 'https://m.media-amazon.com/images/I/81U0ElCx3XL.jpg', price: 4030.00 }
+            ],
+            "Today's Deals": [
+                { title: "Headphones", image: 'https://cdn.thewirecutter.com/wp-content/media/2025/05/BEST-NOISE-CANCELLING-HEADPHONES-8246-3x2-1.jpg?auto=webp&quality=75&crop=16:9,smart&width=1024', price: 1979.99 },
+                { title: "Smartwatch", image: 'https://assets.myntassets.com/w_412,q_30,dpr_3,fl_progressive,f_webp/assets/images/23529200/2023/6/30/5012dc86-9e0c-484d-aa71-29a14524081f1688107020944-Noise-NoiseFit-Crew--Smartwatch---Rose-Pink-3431688107020877-1.jpg', price: 2129.50 },
+                { title: "Wireless Speaker", image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTDAunYg5DFChp15mNQZLiWs0M6MNe2miRUQ&s', price: 3355.00 },
+                { title: "Digital Camera", image: 'https://m.media-amazon.com/images/I/613SQ---hTL.jpg', price: 8450.00 },
+                { title: "Gaming Mouse", image: 'https://m.media-amazon.com/images/I/51ZbUVf-iqL.jpg', price: 2229.99 },
+                { title: "Coffee Maker", image: 'https://m.media-amazon.com/images/I/61dNcZx6yWL._UF894,1000_QL80_.jpg', price: 7449.99 }
+            ],
+             "Customer Service": [
+                { title: "Help & Support", image: 'data:image/jpeg;base64,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', price: 0, isService: true },
+                { title: "Return Policy", image: 'https://sellerengine.com/wordpress/wp-content/uploads/2021/01/Amazon-returns.png', price: 0, isService: true },
+                { title: "Track Your Order", image: 'https://img.freepik.com/premium-vector/free-vector-illustration-tracking-order-icon-button-tab_822642-208.jpg', price: 0, isService: true },
+                { title: "Manage Your Account", image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTB0UlmYVr1_q_mQWllRWtvg27ecv3cWGdypw&s', price: 0, isService: true }
+            ],
+            "Registry": [
+                { title: "Baby Registry", image: 'https://m.media-amazon.com/images/I/71EG0h8mFaL._UF1000,1000_QL80_.jpg', price: 0, isService: true },
+                { title: "Wedding Registry", image: 'https://thefreebieguy.com/wp-content/uploads/2024/08/amazon-wedding-registry.jpg', price: 0 , isService: true},
+                { title: "Holiday Wishlist", image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbVXsW-xJJ6QBSzLCQgTCu-knPaB9wsHfM7Q&s', price: 0, isService: true }
+            ],
+       "Baby Registry Products": [
+                { title: "Baby Monitor", image: 'https://m.media-amazon.com/images/I/61uc9ajbgYL._UF1000,1000_QL80_.jpg', price: 8150.00 },
+                { title: "Stroller", image: 'https://m.media-amazon.com/images/I/517CjnxVQEL.jpg', price: 5350.00 },
+                { title: "Diapers (Pack of 200)", image: 'https://m.media-amazon.com/images/I/614nDp-zE-L._UF1000,1000_QL80_.jpg', price: 675.00 },
+                { title: "Crib", image: 'https://m.media-amazon.com/images/I/71pilqzaqeL._UF894,1000_QL80_.jpg', price: 6299.99 }
+            ],
+            "Wedding Registry Products": [
+                { title: "High-Quality Coffee Machine", image: 'https://m.media-amazon.com/images/I/61dNcZx6yWL._UF894,1000_QL80_.jpg', price: 11199.99 },
+                { title: "Luxury Bedding Set", image: 'https://m.media-amazon.com/images/I/91TE+1uDsFL.jpg', price: 22250.00 },
+                { title: "Blender & Food Processor", image: 'https://m.media-amazon.com/images/I/718NGt08RAL.jpg', price: 5150.00 },
+                { title: "Formal Dinnerware Set", image: 'https://m.media-amazon.com/images/I/61tG5W17+EL._UF894,1000_QL80_.jpg', price: 3200.00 }
+            ],
+            "Holiday Wishlist Products": [
+                { title: "Latest Gaming Console", image: 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTq85dAH20V5Q9vKd9myaXzZ06cUj0zrPKMszuctWA7azT-CdapKVdVTZEUTkpgd88hinBe6CydYIZhj-OvNHGOJExvM00jhbh4tVaUml_OJvx2qDSD6kwxIutYJKCVeZX-bD1jjNY&usqp=CAc', price: 3499.00 },
+                { title: "Portable Bluetooth Speaker", image: 'https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSV8wE5yRWgLKMCjLcDgNf4pEVeFzvlfBv14VGazfxRV_CT1GTm2VJCmFB5sWOFNj9yXplbDOcNcs8H0Bi0u6dmGV-_Ne6w9QiLdi9r7ryZ3-YOPVGd3o6-oFGWyC1RXEZNHopbhA&usqp=CAc', price: 255.00 },
+                { title: "Drone with 4K Camera", image: 'https://m.media-amazon.com/images/I/51ww5g581jL._UF1000,1000_QL80_.jpg', price: 2300.00 },
+                { title: "E-Reader", image: 'https://m.media-amazon.com/images/G/01/kindle/journeys/t7Rfmh40U_1VaJ1y/ZmQyNTQ5YzEt._CB789107687_.jpg', price: 1110.00 }
+            ],
+            "Gift Cards": [
+                { title: "Amazon Gift Card", image: 'data:image/jpeg;base64,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', price: 250.00, isService: true },
+                { title: "eGift Card", image: 'data:image/png;base64,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', price: 175.00, isService: true },
+                { title: "Physical Gift Card", image: 'https://media.istockphoto.com/id/1357352749/vector/human-hand-hold-gift-card-voucher-or-coupon-shopping-discount-certificate-for-customers.jpg?s=612x612&w=0&k=20&c=N8gvWMQEe9O-eAA1SWgoUta8u0dDvSDuNKId7COQDKM=', price: 150.00, isService: true }
+        ],
+                     "Sell": [
+                { title: "Start Selling", image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQSv-50CCEmxicnIrI2wlpRcmwm2ne4WIyVdg&s', price: 0.00, isService: true },
+                { title: "Seller Central", image: 'https://p9n2c8y2.delivery.rocketcdn.me/wp-content/uploads/2021/08/ASC-1-1.png.webp', price: 0.00, isService: true },
+            ],
+            "Shop Deals In Electronics": [
+                { title: "Smart Speaker", image: 'https://i.guim.co.uk/img/media/0e56b5be148580183c7209498ff4c88c58583280/1_0_3414_2049/master/3414.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=0fa0ee67c57b86f36411fb42ba6e13c8', price: 4099.99 },
+                { title: "Wireless Earbuds", image: 'https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcT-AM1G3WyF7jI674f1Y2FUjY8h-gK3ad3fjHQ40TRregykIjy-WZuUoFd1q8DshnRpbQ6pP5biTeiYw2fAyc5u8v-aKOHlW2UDUBOp6m_l4UN8snVAz-EhH3fkxSJ7XA&usqp=CAc', price: 3649.99 },
+                { title: "Portable Charger", image: 'https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQryL3sNLSvEhDaJu9R0TgNohO0QQ3D-nAxPPISc6MmqGhXbGvghDhN5mAP9EuHa3sNhjZn6jy8HdkXiXhYAxiqdDVIPkO_XBiVDi71sBaAuG49yd7cqdCZYJ4PVx9hI22mNN-nlQ&usqp=CAc', price: 2225.00 },
+                { title: "HD Monitor", image: 'https://m.media-amazon.com/images/I/A1LegFELXmL._UF1000,1000_QL80_.jpg', price: 8199.99 },
+                { title: "Action Camera", image: 'https://m.media-amazon.com/images/I/71yk83h0YRL._UF1000,1000_QL80_.jpg', price: 5150.00 },
+                { title: "Laptop", image: 'https://m.media-amazon.com/images/I/61zWFTCfWeL._UF1000,1000_QL80_.jpg', price: 57799.00 }
+            ]
+        };
+
+        // Function to render the product boxes
+        const renderProducts = (category) => {
+            dynamicShopContent.innerHTML = ""; // Clear existing content
+            const products = productsData[category] || [];
+            sectionTitle.innerText = category;
+            
+            if (products.length === 0) {
+                dynamicShopContent.innerHTML = '<p style="width:100%; text-align:center; color:white; font-size:1.2rem;">No items found in this section.</p>';
+            } else {
+                products.forEach(product => {
+                    const box = document.createElement("div");
+                    box.classList.add("box");
+                    box.innerHTML = `
+                        <div class="box-content">
+                            <h2>${product.title}</h2>
+                            <div class="box-img" style="background-image: url('${product.image}');"></div>
+                            ${product.price > 0 ? `<p class="product-price">₹${product.price.toFixed(2)}</p>` : ''}
+                            ${product.isService ? `<button class="service-link" data-service-title="${product.title}">View Details</button>` : ''}
+                            ${product.price > 0 && !product.isService ? `<button class="add-to-cart-btn" data-product="${product.title}" data-price="${product.price}">Add To Cart</button>` : ''}
+                        </div>
+                    `;
+                    dynamicShopContent.appendChild(box);
+                });
+            }
+            // Re-attach listeners to the new buttons
+            attachAddToCartListeners();
+            attachServiceListeners();
+        };
+
+        // Re-attach listeners to dynamically created "Add to Cart" buttons
+        const attachAddToCartListeners = () => {
+            document.querySelectorAll(".add-to-cart-btn").forEach(button => {
+                button.addEventListener("click", () => {
+                    const product = button.getAttribute("data-product");
+                    const price = parseFloat(button.getAttribute("data-price"));
+                    cart.push({ product, price });
+                    renderCart();
+                    showToast(`🛒 Added "${product}" to your cart!`);
+                });
+            });
+        };
+
+        // Attach listeners to new dynamic buttons
+        const attachServiceListeners = () => {
+            document.querySelectorAll(".service-link").forEach(button => {
+                button.addEventListener("click", () => {
+                    const serviceTitle = button.getAttribute("data-service-title");
+                    renderServicePage(serviceTitle);
+                });
+            });
+        };
+
+        // Function to render the dynamic service/registry pages
+        const renderServicePage = (title) => {
+            serviceTitle.innerText = title;
+            serviceContent.innerHTML = ""; // Clear existing content
+
+            let contentHTML = "";
+            switch (title) {
+                case "Help & Support":
+                    contentHTML = `
+                        <p>Our dedicated support team is here to assist you with any questions or issues you may have. We offer 24/7 customer service via chat, email, and phone.</p>
+                        <p><strong>Frequently Asked Questions:</strong></p>
+                        <ul>
+                            <li>How do I track my order?</li>
+                            <li>How do I return an item?</li>
+                            <li>How do I manage my payment methods?</li>
+                        </ul>
+                        <p>Feel free to contact us directly for more personalized help.</p>
+                    `;
+                    break;
+                case "Return Policy":
+                    contentHTML = `
+                        <p>We want you to be completely satisfied with your purchase. Most items are eligible for returns within 30 days of delivery.</p>
+                        <p>To initiate a return, please ensure the item is:</p>
+                        <ul>
+                            <li>In its original condition and packaging.</li>
+                            <li>Unused and undamaged.</li>
+                        </ul>
+                        <p>Certain items, such as gift cards and personalized products, may not be returnable. For more details, please see our full <a href="#">Return Policy</a>.</p>
+                    `;
+                    break;
+                case "Track Your Order":
+                    contentHTML = `
+                        <p>This page provides quick access to track your recent orders. Please navigate to the "Returns & Orders" section in the top navigation bar to see a full list of your past purchases and their delivery status.</p>
+                        <button class="submit-btn" id="goToReturnsBtn" style="margin-top: 20px;">Go to Returns & Orders</button>
+                    `;
+                    break;
+                case "Manage Your Account":
+                    contentHTML = `
+                        <p>Here you can update your personal information, manage your subscriptions, and view your purchase history.</p>
+                        <p>To keep your account secure, please sign in or create an account to view and manage your details.</p>
+                        ${!isLoggedIn ? `<button class="submit-btn" id="goToSignInBtn" style="margin-top: 20px;">Sign In or Create Account</button>` : ''}
+                    `;
+                    break;
+                case "Baby Registry":
+                    contentHTML = `
+                        <p>Create a Baby Registry and get a 10% discount on thousands of items. Share your list with friends and family to help you prepare for your new arrival.</p>
+                        <p><strong>Registry benefits:</strong></p>
+                        <ul>
+                            <li>Welcome Box with free items.</li>
+                            <li>Up to a 15% Completion Discount.</li>
+                            <li>Easy-to-use checklist and thank you list.</li>
+                        </ul>
+                        <button class="submit-btn render-registry-products" data-registry-title="Baby Registry Products" style="margin-top: 20px;">View Registry Products</button>
+                    `;
+                    break;
+                case "Wedding Registry":
+                    contentHTML = `
+                        <p>Your wedding registry, all in one place. Choose from a massive selection of gifts, from home decor to travel essentials, and make your special day even more memorable.</p>
+                        <p><strong>Wedding Registry benefits:</strong></p>
+                        <ul>
+                            <li>Group gifting options for large items.</li>
+                            <li>10% off for items after your wedding date.</li>
+                            <li>Free returns for 180 days.</li>
+                        </ul>
+                        <button class="submit-btn render-registry-products" data-registry-title="Wedding Registry Products" style="margin-top: 20px;">View Registry Products</button>
+                    `;
+                    break;
+                case "Holiday Wishlist":
+                    contentHTML = `
+                        <p>Create a holiday wishlist to share with friends and family. It's the easiest way to get exactly what you want this holiday season!</p>
+                        <p><strong>Wishlist benefits:</strong></p>
+                        <ul>
+                            <li>Keep track of items you love.</li>
+                            <li>Share your list privately or publicly.</li>
+                            <li>See what others have on their list for gifting inspiration.</li>
+                        </ul>
+                        <button class="submit-btn render-registry-products" data-registry-title="Holiday Wishlist Products" style="margin-top: 20px;">View Registry Products</button>
+                    `;
+                    break;
+                case "Amazon Gift Card":
+                    contentHTML = `
+                        <p>The **Amazon Gift Card** is a versatile gift for any occasion, offering the ultimate flexibility for the recipient.</p>
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li>**Universal Redemption:** Can be used to buy millions of items on Amazon.</li>
+                            <li>**No Expiration:** The balance never expires, so it can be used whenever they want.</li>
+                            <li>**Instant Delivery:** Send the card instantly via email, making it perfect for last-minute gifts.</li>
+                        </ul>
+                        <button class="submit-btn add-from-service" data-product="Amazon Gift Card" data-price="50.00" style="margin-top: 20px;">Add to Cart</button>
+                    `;
+                    break;
+                case "eGift Card":
+                    contentHTML = `
+                        <p>The **eGift Card** is the fastest and most convenient way to send a gift. It's delivered to the recipient's email in minutes.</p>
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li>**Digital Delivery:** Instantly sent to the recipient's email, perfect for last-minute surprises.</li>
+                            <li>**Personalize Your Gift:** Customize the card with a personal message and a design of your choice.</li>
+                            <li>**Flexible Denominations:** Choose the exact amount you want to give, with no additional fees.</li>
+                        </ul>
+                        <button class="submit-btn add-from-service" data-product="eGift Card" data-price="25.00" style="margin-top: 20px;">Add to Cart</button>
+                    `;
+                    break;
+                case "Physical Gift Card":
+                    contentHTML = `
+                        <p>A **Physical Gift Card** is a classic gift that offers a personal touch. The card arrives beautifully packaged and ready to be given.</p>
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li>**Premium Packaging:** Comes in a free gift box or a special gift bag for a memorable unboxing experience.</li>
+                            <li>**No Hidden Fees:** The recipient gets the full value of the card with no fees.</li>
+                            <li>**Reliable Shipping:** We'll ship it directly to the recipient's address with fast and secure delivery.</li>
+                        </ul>
+                        <button class="submit-btn add-from-service" data-product="Physical Gift Card" data-price="100.00" style="margin-top: 20px;">Add to Cart</button>
+                    `;
+                    break;
+                case "Start Selling":
+                    contentHTML = `
+                        <p>Ready to reach millions of customers? Sell your products on Amazon and grow your business with our powerful tools and resources.</p>
+                        <p><strong>Benefits of selling on Amazon:</strong></p>
+                        <ul>
+                            <li>Access to a global audience.</li>
+                            <li>Flexible selling plans.</li>
+                            <li>Fulfillment by Amazon (FBA) services.</li>
+                        </ul>
+                        <p>Visit the <a href="#">Amazon Seller website</a> to get started!</p>
+                    `;
+                    break;
+                case "Seller Central":
+                    contentHTML = `
+                        <p>Seller Central is the hub for your Amazon business. It's where you manage everything from your inventory and orders to your advertising campaigns and customer feedback.</p>
+                        <p><strong>Features:</strong></p>
+                        <ul>
+                            <li>Manage your product listings.</li>
+                            <li>Monitor your sales and performance.</li>
+                            <li>Access powerful reporting and analytics.</li>
+                        </ul>
+                        <p>If you're already a seller, you can log in to your <a href="#">Seller Central account</a> here.</p>
+                    `;
+                    break;
+                default:
+                    contentHTML = `<p>Welcome to our customer service page.</p>`;
+            }
+
+            serviceContent.innerHTML = contentHTML;
+            customerServiceModal.style.display = "flex";
+
+            // Attach listeners to new buttons inside the modal
+            if (document.getElementById("goToReturnsBtn")) {
+                document.getElementById("goToReturnsBtn").addEventListener("click", () => {
+                    customerServiceModal.style.display = "none";
+                    returnsModal.style.display = "flex";
+                    renderOrderHistory();
+                });
+            }
+            if (document.getElementById("goToSignInBtn")) {
+                document.getElementById("goToSignInBtn").addEventListener("click", () => {
+                    customerServiceModal.style.display = "none";
+                    signUpModal.style.display = "flex";
+                });
+            }
+            document.querySelectorAll(".add-from-service").forEach(button => {
+                button.addEventListener("click", () => {
+                    const product = button.getAttribute("data-product");
+                    const price = parseFloat(button.getAttribute("data-price"));
+                    cart.push({ product, price });
+                    renderCart();
+                    showToast(`🛒 Added "${product}" to your cart!`);
+                    customerServiceModal.style.display = "none";
+                });
+            });
+            document.querySelectorAll(".render-registry-products").forEach(button => {
+                button.addEventListener("click", () => {
+                    const registryCategory = button.getAttribute("data-registry-title");
+                    renderProducts(registryCategory);
+                    customerServiceModal.style.display = "none";
+                });
+            });
+        };
+
+
+        // Function to render the cart contents
+        const renderCart = () => {
+            cartList.innerHTML = "";
+            let total = 0;
+            if (cart.length === 0) {
+                emptyCartMsg.style.display = "block";
+                proceedToPaymentBtn.style.display = "none";
+            } else {
+                emptyCartMsg.style.display = "none";
+                proceedToPaymentBtn.style.display = "block";
+                cart.forEach((item, index) => {
+                    const li = document.createElement("li");
+                    li.classList.add("cart-item");
+                    li.innerHTML = `
+                        <span class="cart-item-name">${item.product}</span>
+                        <span class="cart-item-price">₹${item.price.toFixed(2)}</span>
+                        <button class="remove-btn" data-index="${index}">Remove</button>
+                    `;
+                    cartList.appendChild(li);
+                    total += item.price;
+                });
+            }
+            cartTotalSpan.innerText = `₹${total.toFixed(2)}`;
+            cartCountSpan.innerText = cart.length;
+        };
+        
+        // Function to show a toast notification for adding items
+        const showToast = (message) => {
+            toastNotification.innerText = message;
+            toastNotification.classList.add('show');
+            setTimeout(() => {
+                toastNotification.classList.remove('show');
+            }, 3000); // Hide after 3 seconds
+        };
+
+        // Function to show an in-modal notification
+        const showCartNotification = (message, isRemove = false) => {
+            cartNotification.innerText = message;
+            cartNotification.style.display = "block";
+            cartNotification.classList.toggle('remove', isRemove);
+            setTimeout(() => {
+                cartNotification.style.display = "none";
+            }, 2000);
+        };
+
+        // Function to update the delivery time in the returns modal
+        const updateDeliveryTime = () => {
+            const now = new Date();
+            const deliveryEstimate = new Date(now.getTime() + 2 * 60 * 60 * 1000); // Add 2 hours
+            
+            const formatTime = (date) => {
+                let hours = date.getHours();
+                const minutes = date.getMinutes().toString().padStart(2, '0');
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // The hour '0' should be '12'
+                return `${hours}:${minutes} ${ampm}`;
+            };
+
+            const formatFullTime = (date) => {
+                const day = date.getDate().toString().padStart(2, '0');
+                const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}/${month}/${year} at ${formatTime(date)}`;
+            };
+
+            deliveryTimeSpan.innerText = formatTime(deliveryEstimate);
+            lastUpdatedTimeSpan.innerText = formatFullTime(now);
+        };
+
+        // Function to render the order history list
+        const renderOrderHistory = () => {
+            orderHistoryList.innerHTML = "";
+            orderHistoryView.style.display = "block";
+            trackingDetailsView.style.display = "none";
+
+            if (userOrders.length === 0) {
+                noOrdersMsg.style.display = "block";
+            } else {
+                noOrdersMsg.style.display = "none";
+                userOrders.forEach((order, index) => {
+                    const orderItem = document.createElement("div");
+                    orderItem.classList.add("order-item");
+                    
+                    const itemTitles = order.products.map(p => p.product).join(", ");
+                    const totalOrderPrice = order.products.reduce((sum, p) => sum + p.price, 0);
+
+                    orderItem.innerHTML = `
+                        <h4>Order #${order.id}</h4>
+                        <p><strong>Date Placed:</strong> ${order.timestamp.toLocaleDateString()}</p>
+                        <p><strong>Items:</strong> ${itemTitles}</p>
+                        <p><strong>Total:</strong> ₹${totalOrderPrice.toFixed(2)}</p>
+                        <button class="track-btn" data-index="${index}">Track Order</button>
+                    `;
+                    orderHistoryList.appendChild(orderItem);
+                });
+                attachTrackingListeners();
+            }
+        };
+
+        // Function to attach listeners to track buttons
+        const attachTrackingListeners = () => {
+            document.querySelectorAll(".track-btn").forEach(button => {
+                button.addEventListener("click", (event) => {
+                    const index = event.target.getAttribute("data-index");
+                    const orderToTrack = userOrders[index];
+                    renderTrackingDetails(orderToTrack);
+                });
+            });
+        };
+
+        // Function to render the tracking details for a specific order
+        const renderTrackingDetails = (order) => {
+            orderHistoryView.style.display = "none";
+            trackingDetailsView.style.display = "block";
+            orderIdSpan.innerText = order.id;
+            updateDeliveryTime();
+            trackingInterval = setInterval(updateDeliveryTime, 1000);
+        };
+
+
+        // Panel link event listeners
+        document.getElementById("panel-all").addEventListener("click", () => renderProducts("Home"));
+        document.getElementById("panel-deals").addEventListener("click", () => renderProducts("Today's Deals"));
+        document.getElementById("panel-service").addEventListener("click", () => renderProducts("Customer Service"));
+        document.getElementById("panel-registry").addEventListener("click", () => renderProducts("Registry"));
+        document.getElementById("panel-gifts").addEventListener("click", () => renderProducts("Gift Cards"));
+        document.getElementById("panel-sell").addEventListener("click", () => renderProducts("Sell"));
+        document.getElementById("panel-electronics").addEventListener("click", () => renderProducts("Shop Deals In Electronics"));
+
+        // Open cart modal
+        cartBtn.addEventListener("click", () => {
+            cartModal.style.display = "flex";
+            renderCart();
+        });
+
+        // Close cart modal
+        closeCartBtn.addEventListener("click", () => {
+            cartModal.style.display = "none";
+        });
+
+        // Open returns & orders modal
+        returnsBtn.addEventListener("click", () => {
+            returnsModal.style.display = "flex";
+            renderOrderHistory(); // Show the order history list by default
+        });
+
+        // Close returns & orders modal
+        closeReturnsBtn.addEventListener("click", () => {
+            returnsModal.style.display = "none";
+            clearInterval(trackingInterval); // Clear the interval when closing
+        });
+        
+        // Close customer service modal
+        closeCustomerServiceBtn.addEventListener("click", () => {
+            customerServiceModal.style.display = "none";
+        });
+
+        // Close location modal
+        closeLocationBtn.addEventListener("click", () => {
+            locationModal.style.display = "none";
+        });
+
+        // Back to orders button in tracking view
+        backToOrdersBtn.addEventListener("click", () => {
+            clearInterval(trackingInterval); // Stop tracking when going back
+            renderOrderHistory();
+        });
+
+
+        // Close payment modal
+        closePaymentBtn.addEventListener("click", () => {
+            paymentModal.style.display = "none";
+        });
+
+        // Close sign up modal
+        closeSignUpBtn.addEventListener("click", () => {
+            signUpModal.style.display = "none";
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener("click", (event) => {
+            if (event.target === cartModal) {
+                cartModal.style.display = "none";
+            }
+            if (event.target === paymentModal) {
+                paymentModal.style.display = "none";
+            }
+            if (event.target === signUpModal) {
+                signUpModal.style.display = "none";
+            }
+            if (event.target === returnsModal) {
+                returnsModal.style.display = "none";
+                clearInterval(trackingInterval);
+            }
+            if (event.target === customerServiceModal) {
+                customerServiceModal.style.display = "none";
+            }
+            if (event.target === locationModal) {
+                locationModal.style.display = "none";
+            }
+        });
+
+        // Open sign up modal
+        signInBtn.addEventListener("click", () => {
+            if (!isLoggedIn) {
+                signUpModal.style.display = "flex";
+            } else {
+                showToast(`Hello, ${userName}! You are already signed in.`);
+            }
+        });
+
+        // Handle sign up form submission
+        signUpForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const name = document.getElementById("signUpName").value;
+            const email = document.getElementById("signUpEmail").value;
+            const password = document.getElementById("signUpPassword").value;
+
+            // Simple validation
+            if (name && email && password) {
+                // Simulate account creation
+                isLoggedIn = true;
+                userName = name;
+                signUpModal.style.display = "none";
+                signInText.innerText = `Hello, ${userName}`;
+                accountText.innerText = `My Account`;
+                showToast(`✅ Welcome to Amazon, ${userName}!`);
+            } else {
+                showToast("Please fill out all fields to create an account.");
+            }
+        });
+
+        // Remove item from cart
+        cartList.addEventListener("click", (event) => {
+            if (event.target.classList.contains("remove-btn")) {
+                const index = event.target.getAttribute("data-index");
+                const removedItem = cart[index].product;
+                cart.splice(index, 1);
+                renderCart();
+                showCartNotification(`Removed "${removedItem}" from cart.`, true);
+            }
+        });
+
+        // Open payment modal
+        proceedToPaymentBtn.addEventListener("click", () => {
+            cartModal.style.display = "none";
+            paymentModal.style.display = "flex";
+        });
+
+        // Payment form submission handler
+        paymentForm.addEventListener("submit", (event) => {
+            event.preventDefault();
+            if (cart.length > 0) {
+                // Create a new order with cart items, an ID, and a timestamp
+                const newOrder = {
+                    id: `${Math.floor(Math.random() * 1000)}-${Math.floor(Math.random() * 10000000)}`,
+                    products: [...cart],
+                    timestamp: new Date()
+                };
+                userOrders.push(newOrder);
+
+                showToast("✅ Payment successful! Thank you for your purchase.");
+                paymentModal.style.display = "none";
+                cart = []; // Clear the cart after successful payment
+                renderCart();
+            } else {
+                showToast("Your cart is empty. Please add items to proceed.");
+                paymentModal.style.display = "none";
+            }
+        });
+
+        // Search functionality
+        searchIcon.addEventListener("click", () => {
+            const currentCategory = sectionTitle.innerText;
+            const allProducts = productsData[currentCategory];
+            const query = searchInput.value.toLowerCase();
+            
+            dynamicShopContent.innerHTML = ""; // Clear content for search results
+
+            const filteredProducts = allProducts.filter(p => p.title.toLowerCase().includes(query));
+
+            if (filteredProducts.length > 0) {
+                noResultsMsg.style.display = "none";
+                filteredProducts.forEach(product => {
+                    const box = document.createElement("div");
+                    box.classList.add("box");
+                    box.innerHTML = `
+                        <div class="box-content">
+                            <h2>${product.title}</h2>
+                            <div class="box-img" style="background-image: url('${product.image}');"></div>
+                            ${product.price > 0 ? `<p class="product-price">₹${product.price.toFixed(2)}</p>` : ''}
+                            ${product.isService ? `<button class="service-link" data-service-title="${product.title}">View Details</button>` : ''}
+                            ${product.price > 0 && !product.isService ? `<button class="add-to-cart-btn" data-product="${product.title}" data-price="${product.price}">Add To Cart</button>` : ''}
+                        </div>
+                    `;
+                    dynamicShopContent.appendChild(box);
+                });
+                attachAddToCartListeners();
+                attachServiceListeners();
+            } else {
+                noResultsMsg.style.display = "block";
+            }
+        });
+
+        // Dark Mode Toggle
+        darkToggle.addEventListener("click", () => {
+            document.body.classList.toggle("dark-mode");
+            darkToggle.innerText = document.body.classList.contains("dark-mode") ? "☀️" : "🌙";
+        });
+
+        // Back to Top button
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 300) {
+                backToTop.style.display = "block";
+            } else {
+                backToTop.style.display = "none";
+            }
+        });
+        backToTop.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Deals button handler
+        const dealsTopBtn = document.getElementById("dealsBtn");
+        if (dealsTopBtn) {
+            dealsTopBtn.addEventListener("click", () => {
+                renderProducts("Today's Deals");
+            });
+        }
+
+        // Location Modal Handlers
+        locationBtn.addEventListener("click", () => {
+            locationModal.style.display = "flex";
+        });
+
+        closeLocationBtn.addEventListener("click", () => {
+            locationModal.style.display = "none";
+        });
+        
+        countryListUl.addEventListener("click", (event) => {
+            if (event.target.tagName === "LI") {
+                selectedCountrySpan.innerText = event.target.innerText;
+                locationModal.style.display = "none";
+            }
+        });
+
+        // Initial page load
+        document.addEventListener("DOMContentLoaded", () => {
+            renderProducts("Home");
+            renderCart();
+            countries.forEach(country => {
+                const li = document.createElement("li");
+                li.innerText = country;
+                countryListUl.appendChild(li);
+            });
+        });
+    </script>
+</body>
+</html>
