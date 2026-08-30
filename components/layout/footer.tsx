@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useAppState } from "@/lib/state-store";
-import { Globe, ArrowUp } from "lucide-react";
+import { Globe, ArrowUp, Github } from "lucide-react";
 
 export function Footer() {
   const { country, currency, setIsLocationModalOpen } = useAppState();
@@ -34,13 +34,14 @@ export function Footer() {
             <li><Link href="/" className="hover:underline">About Amazon</Link></li>
             <li><Link href="/" className="hover:underline">Careers</Link></li>
             <li><Link href="/" className="hover:underline">Press Releases</Link></li>
-            <li><Link href="/" className="hover:underline">Amazon Science</Link></li>
+            <li><a href="https://github.com/M20A03/Amazon-Clone" target="_blank" rel="noreferrer" className="hover:underline flex items-center gap-1.5"><Github className="w-3.5 h-3.5" /> Source Code</a></li>
           </ul>
         </div>
 
         <div>
-          <h3 className="font-bold text-base mb-3 text-white">Connect with Us</h3>
+          <h3 className="font-bold text-base mb-3 text-white">Connect & Contributors</h3>
           <ul className="space-y-2 text-xs text-gray-300">
+            <li><a href="https://github.com/M20A03" target="_blank" rel="noreferrer" className="hover:underline font-semibold text-amazon-amber">Mayank Raj (Lead Architect)</a></li>
             <li><a href="https://ypr.christuniversity.in/" target="_blank" rel="noreferrer" className="hover:underline">Christ University YPR</a></li>
             <li><a href="https://www.instagram.com/_awaisthetics_" target="_blank" rel="noreferrer" className="hover:underline">_awaisthetics_</a></li>
             <li><a href="https://www.instagram.com/subh_notokay" target="_blank" rel="noreferrer" className="hover:underline">subh_notokay</a></li>
@@ -85,7 +86,7 @@ export function Footer() {
         </div>
 
         <p className="text-[11px] text-gray-400 mt-4">
-          © 1996-{new Date().getFullYear()}, Amazon.com, Inc. or its affiliates. Modern Enterprise Next.js 15 Edition.
+          © 1996-{new Date().getFullYear()}, Amazon.com, Inc. or its affiliates. Built with Next.js 15 App Router & TypeScript by <a href="https://github.com/M20A03" target="_blank" rel="noreferrer" className="text-amazon-amber hover:underline font-semibold">Mayank Raj</a>.
         </p>
       </div>
     </footer>
