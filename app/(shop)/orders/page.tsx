@@ -17,24 +17,24 @@ export default function OrdersPage() {
   const activeTrackingOrder = orders.find((o) => o.id === selectedOrderTracking) || orders[0];
 
   return (
-    <div className="max-w-5xl mx-auto space-y-6">
+    <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-text-primary">Your Orders</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-text-primary">Your Orders</h1>
         <p className="text-xs text-text-secondary mt-1">
           Track packages, initiate returns, download invoices, and reorder items.
         </p>
       </div>
 
       {orders.length === 0 ? (
-        <div className="bg-surface rounded-xl border border-border p-12 text-center flex flex-col items-center justify-center">
-          <div className="w-16 h-16 rounded-full bg-surface-secondary flex items-center justify-center text-text-muted mb-4">
-            <Package className="w-8 h-8" />
+        <div className="bg-surface rounded-xl border border-border p-8 sm:p-12 text-center flex flex-col items-center justify-center">
+          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-surface-secondary flex items-center justify-center text-text-muted mb-3 sm:mb-4">
+            <Package className="w-7 h-7 sm:w-8 sm:h-8" />
           </div>
-          <h2 className="text-lg font-bold text-text-primary mb-1">
+          <h2 className="text-base sm:text-lg font-bold text-text-primary mb-1">
             You have no past orders
           </h2>
-          <p className="text-xs text-text-secondary max-w-sm mb-6">
+          <p className="text-xs text-text-secondary max-w-sm mb-4 sm:mb-6">
             When you place an order, your tracking details, invoices, and delivery status will appear here.
           </p>
           <Link href="/">
@@ -44,9 +44,9 @@ export default function OrdersPage() {
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
           {/* Left Column: List of Orders */}
-          <div className="lg:col-span-7 space-y-4">
+          <div className="lg:col-span-7 space-y-3 sm:space-y-4">
             {orders.map((order) => {
               const isSelected = order.id === activeTrackingOrder?.id;
 
@@ -58,44 +58,44 @@ export default function OrdersPage() {
                   }`}
                 >
                   {/* Order Card Header */}
-                  <div className="bg-surface-secondary px-4 py-3 border-b border-border flex flex-wrap items-center justify-between gap-2 text-xs">
-                    <div className="flex gap-6">
+                  <div className="bg-surface-secondary px-3.5 py-3 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                    <div className="grid grid-cols-3 sm:flex sm:gap-6 gap-2">
                       <div>
-                        <span className="text-text-muted block">ORDER PLACED</span>
-                        <span className="font-semibold text-text-primary">
+                        <span className="text-text-muted text-[10px] sm:text-xs block">PLACED</span>
+                        <span className="font-semibold text-text-primary text-xs">
                           {new Date(order.createdAt).toLocaleDateString()}
                         </span>
                       </div>
                       <div>
-                        <span className="text-text-muted block">TOTAL</span>
-                        <span className="font-semibold text-amazon-price">
+                        <span className="text-text-muted text-[10px] sm:text-xs block">TOTAL</span>
+                        <span className="font-semibold text-amazon-price text-xs">
                           {formatCurrency(order.totalAmountINR, currency)}
                         </span>
                       </div>
                       <div>
-                        <span className="text-text-muted block">SHIP TO</span>
-                        <span className="font-semibold text-text-primary truncate max-w-[120px] block">
+                        <span className="text-text-muted text-[10px] sm:text-xs block">SHIP TO</span>
+                        <span className="font-semibold text-text-primary truncate max-w-[100px] sm:max-w-[120px] block text-xs">
                           {order.shippingAddress.fullName}
                         </span>
                       </div>
                     </div>
 
-                    <div>
-                      <span className="text-text-muted block">ORDER # {order.id}</span>
+                    <div className="flex sm:flex-col items-center sm:items-end justify-between pt-1 sm:pt-0 border-t sm:border-t-0 border-border/50">
+                      <span className="text-text-muted text-[10px] sm:text-xs">ORDER #{order.id}</span>
                       <button
                         onClick={() => setSelectedOrderTracking(order.id)}
-                        className="text-amazon-link hover:underline font-semibold"
+                        className="text-amazon-link hover:underline font-semibold text-xs"
                       >
-                        View Tracking Timeline
+                        Track Timeline →
                       </button>
                     </div>
                   </div>
 
                   {/* Order Items */}
-                  <div className="p-4 divide-y divide-border">
+                  <div className="p-3 sm:p-4 divide-y divide-border">
                     {order.items.map((item) => (
-                      <div key={item.product.id} className="py-3 first:pt-0 last:pb-0 flex gap-4">
-                        <div className="relative w-16 h-16 bg-white rounded border border-border overflow-hidden shrink-0">
+                      <div key={item.product.id} className="py-3 first:pt-0 last:pb-0 flex gap-3 sm:gap-4">
+                        <div className="relative w-14 h-14 sm:w-16 sm:h-16 bg-white rounded border border-border overflow-hidden shrink-0">
                           <Image
                             src={item.product.image}
                             alt={item.product.title}
@@ -104,21 +104,21 @@ export default function OrdersPage() {
                             className="object-contain p-1"
                           />
                         </div>
-                        <div className="flex-1">
-                          <h4 className="font-medium text-text-primary text-xs line-clamp-2">
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-medium text-text-primary text-xs line-clamp-2 leading-snug">
                             {item.product.title}
                           </h4>
                           <div className="text-xs text-text-secondary mt-1">
                             Qty: {item.quantity} • {formatCurrency(item.product.price, currency)}
                           </div>
-                          <div className="flex items-center gap-3 mt-2">
+                          <div className="flex flex-wrap items-center gap-2 mt-2">
                             <Link href={`/product/${item.product.id}`}>
-                              <Button variant="amazon-yellow" size="sm">
-                                Buy it again
+                              <Button variant="amazon-yellow" size="sm" className="text-xs py-1 px-2.5">
+                                Buy again
                               </Button>
                             </Link>
                             <Link href="/customer-service">
-                              <Button variant="outline" size="sm">
+                              <Button variant="outline" size="sm" className="text-xs py-1 px-2.5">
                                 Return item
                               </Button>
                             </Link>
@@ -135,12 +135,12 @@ export default function OrdersPage() {
           {/* Right Column: Live Tracking Visualizer */}
           {activeTrackingOrder && (
             <div className="lg:col-span-5">
-              <div className="sticky top-20 bg-surface rounded-xl border border-border p-6 shadow-sm space-y-6">
-                <div className="flex items-center justify-between border-b border-border pb-4">
+              <div className="lg:sticky lg:top-20 bg-surface rounded-xl border border-border p-4 sm:p-6 shadow-sm space-y-4 sm:space-y-6">
+                <div className="flex items-center justify-between border-b border-border pb-3 sm:pb-4">
                   <div className="flex items-center gap-2">
-                    <Truck className="w-6 h-6 text-amazon-amber" />
+                    <Truck className="w-5 h-5 sm:w-6 sm:h-6 text-amazon-amber" />
                     <div>
-                      <h3 className="font-bold text-sm text-text-primary">
+                      <h3 className="font-bold text-xs sm:text-sm text-text-primary">
                         Status: {activeTrackingOrder.status}
                       </h3>
                       <p className="text-xs text-status-success font-semibold">
@@ -148,18 +148,18 @@ export default function OrdersPage() {
                       </p>
                     </div>
                   </div>
-                  <span className="text-xs bg-surface-secondary px-2.5 py-1 rounded border border-border font-mono">
+                  <span className="text-[11px] sm:text-xs bg-surface-secondary px-2 py-1 rounded border border-border font-mono">
                     #{activeTrackingOrder.id}
                   </span>
                 </div>
 
                 {/* Tracking Progress Bar */}
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   <h4 className="text-xs font-bold text-text-secondary uppercase tracking-wider">
                     Package Journey
                   </h4>
 
-                  <div className="relative pl-6 space-y-6 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-border">
+                  <div className="relative pl-6 space-y-5 sm:space-y-6 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-border">
                     {activeTrackingOrder.trackingSteps.map((step, idx) => (
                       <div key={idx} className="relative">
                         <div
@@ -189,7 +189,7 @@ export default function OrdersPage() {
                           >
                             {step.title}
                           </p>
-                          <p className="text-[11px] text-text-secondary">{step.time}</p>
+                          <p className="text-[10px] sm:text-[11px] text-text-secondary">{step.time}</p>
                         </div>
                       </div>
                     ))}

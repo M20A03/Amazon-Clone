@@ -6,6 +6,7 @@ import { StateProvider } from "@/lib/state-store";
 import { ToastContainer } from "@/components/ui/toast";
 import { CartDrawer } from "@/components/cart/cart-drawer";
 import { LocationModal } from "@/components/layout/location-modal";
+import { MobileBottomNav } from "@/components/layout/mobile-bottom-nav";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -56,6 +57,7 @@ export default function RootLayout({
             {children}
             <CartDrawer />
             <LocationModal />
+            <MobileBottomNav />
             <ToastContainer />
           </StateProvider>
         </ThemeProvider>

@@ -49,17 +49,17 @@ export function ProductModalContent({ product, isModal = true }: { product: Prod
       {isModal && (
         <button
           onClick={handleClose}
-          className="absolute top-4 right-4 z-20 p-2 rounded-full bg-surface-secondary text-text-secondary hover:text-text-primary hover:bg-border transition-colors border border-border shadow"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 p-1.5 sm:p-2 rounded-full bg-surface-secondary text-text-secondary hover:text-text-primary hover:bg-border transition-colors border border-border shadow"
           aria-label="Close modal"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 p-6 lg:p-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-8 p-4 sm:p-6 lg:p-8">
         {/* Left: Image Gallery */}
         <div className="lg:col-span-5 flex flex-col items-center">
-          <div className="relative w-full h-80 bg-white rounded-lg border border-border p-4 flex items-center justify-center overflow-hidden mb-4">
+          <div className="relative w-full h-56 sm:h-72 lg:h-80 bg-white rounded-lg border border-border p-3 sm:p-4 flex items-center justify-center overflow-hidden mb-3 sm:mb-4">
             <Image
               src={selectedImage}
               alt={product.title}
@@ -72,12 +72,12 @@ export function ProductModalContent({ product, isModal = true }: { product: Prod
 
           {/* Thumbnail Strip */}
           {product.galleryImages && product.galleryImages.length > 1 && (
-            <div className="flex gap-2 overflow-x-auto w-full py-1">
+            <div className="flex gap-2 overflow-x-auto w-full py-1 no-scrollbar">
               {product.galleryImages.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(img)}
-                  className={`relative w-16 h-16 bg-white rounded border-2 overflow-hidden shrink-0 transition-colors ${
+                  className={`relative w-12 h-12 sm:w-16 sm:h-16 bg-white rounded border-2 overflow-hidden shrink-0 transition-colors ${
                     selectedImage === img ? "border-amazon-amber" : "border-border hover:border-gray-400"
                   }`}
                 >
@@ -89,27 +89,27 @@ export function ProductModalContent({ product, isModal = true }: { product: Prod
         </div>
 
         {/* Center: Details */}
-        <div className="lg:col-span-4 space-y-4">
+        <div className="lg:col-span-4 space-y-3 sm:space-y-4">
           <div>
-            <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-              <span className="text-xs font-semibold text-amazon-link uppercase tracking-wider">
+            <div className="flex items-center gap-2 mb-1 flex-wrap">
+              <span className="text-[11px] sm:text-xs font-semibold text-amazon-link uppercase tracking-wider">
                 Visit the {product.specifications?.Brand || "Amazon"} Store
               </span>
-              {product.isBestSeller && <Badge variant="bestseller">#1 Best Seller</Badge>}
+              {product.isBestSeller && <Badge variant="bestseller" className="text-[10px]">#1 Best Seller</Badge>}
             </div>
 
-            <h1 className="text-lg lg:text-xl font-bold text-text-primary leading-tight">
+            <h1 className="text-base sm:text-lg lg:text-xl font-bold text-text-primary leading-snug sm:leading-tight">
               {product.title}
             </h1>
           </div>
 
           {/* Rating */}
-          <div className="flex items-center gap-2 text-sm">
+          <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm">
             <div className="flex items-center text-amber-500">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star
                   key={i}
-                  className={`w-4 h-4 ${
+                  className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${
                     i < Math.floor(product.rating)
                       ? "fill-amber-500 text-amber-500"
                       : "text-gray-300 dark:text-gray-600"
@@ -118,7 +118,7 @@ export function ProductModalContent({ product, isModal = true }: { product: Prod
               ))}
             </div>
             <span className="font-semibold text-text-primary">{product.rating}</span>
-            <span className="text-xs text-amazon-link hover:underline">
+            <span className="text-[11px] sm:text-xs text-amazon-link hover:underline">
               {product.reviewCount.toLocaleString()} ratings
             </span>
           </div>
@@ -127,31 +127,31 @@ export function ProductModalContent({ product, isModal = true }: { product: Prod
 
           {/* Pricing */}
           <div>
-            <div className="flex items-baseline gap-3">
+            <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap">
               {discountPercent > 0 && (
-                <span className="text-2xl font-light text-status-error">
+                <span className="text-xl sm:text-2xl font-light text-status-error">
                   -{discountPercent}%
                 </span>
               )}
-              <span className="text-2xl lg:text-3xl font-extrabold text-amazon-price">
+              <span className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-amazon-price">
                 {formatCurrency(product.price, currency)}
               </span>
             </div>
             {product.originalPrice && (
-              <p className="text-xs text-text-muted mt-1">
+              <p className="text-[11px] sm:text-xs text-text-muted mt-0.5 sm:mt-1">
                 Typical price:{" "}
                 <span className="line-through">{formatCurrency(product.originalPrice, currency)}</span>
               </p>
             )}
-            <p className="text-xs text-text-secondary mt-1">Inclusive of all taxes</p>
+            <p className="text-[11px] sm:text-xs text-text-secondary mt-0.5">Inclusive of all taxes</p>
           </div>
 
           <hr className="border-border" />
 
           {/* Description & Features */}
           <div>
-            <h3 className="font-bold text-sm text-text-primary mb-2">About this item</h3>
-            <ul className="space-y-1.5 text-xs text-text-secondary list-disc pl-4">
+            <h3 className="font-bold text-xs sm:text-sm text-text-primary mb-1.5 sm:mb-2">About this item</h3>
+            <ul className="space-y-1 sm:space-y-1.5 text-xs text-text-secondary list-disc pl-4">
               {product.features.map((feature, i) => (
                 <li key={i}>{feature}</li>
               ))}
@@ -160,13 +160,13 @@ export function ProductModalContent({ product, isModal = true }: { product: Prod
 
           {/* Specifications Table */}
           {product.specifications && (
-            <div className="pt-2">
-              <h3 className="font-bold text-xs text-text-primary uppercase tracking-wider mb-2">
+            <div className="pt-1 sm:pt-2">
+              <h3 className="font-bold text-xs text-text-primary uppercase tracking-wider mb-1.5 sm:mb-2">
                 Specifications
               </h3>
-              <div className="grid grid-cols-2 gap-2 text-xs border border-border rounded-lg p-3 bg-surface-secondary">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs border border-border rounded-lg p-2.5 sm:p-3 bg-surface-secondary">
                 {Object.entries(product.specifications).map(([key, val]) => (
-                  <div key={key}>
+                  <div key={key} className="break-words">
                     <span className="text-text-muted">{key}: </span>
                     <span className="font-medium text-text-primary">{val}</span>
                   </div>
@@ -190,8 +190,8 @@ export function ProductModalContent({ product, isModal = true }: { product: Prod
 
         {/* Right: Buy Box / Checkout Action */}
         <div className="lg:col-span-3">
-          <div className="border border-border rounded-xl p-5 bg-surface-secondary space-y-4 shadow-sm">
-            <div className="text-xl font-bold text-amazon-price">
+          <div className="border border-border rounded-xl p-4 sm:p-5 bg-surface-secondary space-y-3 sm:space-y-4 shadow-sm">
+            <div className="text-lg sm:text-xl font-bold text-amazon-price">
               {formatCurrency(product.price * quantity, currency)}
             </div>
 
@@ -207,9 +207,9 @@ export function ProductModalContent({ product, isModal = true }: { product: Prod
 
             <div>
               {product.inStock ? (
-                <span className="text-sm font-bold text-status-success">In Stock</span>
+                <span className="text-xs sm:text-sm font-bold text-status-success">In Stock</span>
               ) : (
-                <span className="text-sm font-bold text-status-error">Currently Unavailable</span>
+                <span className="text-xs sm:text-sm font-bold text-status-error">Currently Unavailable</span>
               )}
             </div>
 
@@ -235,7 +235,7 @@ export function ProductModalContent({ product, isModal = true }: { product: Prod
             )}
 
             {/* Action Buttons */}
-            <div className="space-y-2 pt-2">
+            <div className="space-y-2 pt-1 sm:pt-2">
               <Button
                 variant="amazon-yellow"
                 size="md"

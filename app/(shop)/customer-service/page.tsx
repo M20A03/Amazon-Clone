@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { ShieldCheck, RotateCcw, Truck, HelpCircle, ChevronDown, Headphones, CreditCard } from "lucide-react";
+import { ShieldCheck, RotateCcw, Truck, ChevronDown, Headphones, CreditCard } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -36,19 +36,19 @@ export default function CustomerServicePage() {
   const [openTopic, setOpenTopic] = useState<number | null>(0);
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
       {/* Header */}
-      <div className="text-center space-y-2 py-4">
-        <h1 className="text-3xl font-extrabold text-text-primary">
+      <div className="text-center space-y-2 py-2 sm:py-4">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-text-primary">
           Amazon Customer Service
         </h1>
-        <p className="text-sm text-text-secondary max-w-lg mx-auto">
+        <p className="text-xs sm:text-sm text-text-secondary max-w-lg mx-auto">
           How can we help you today? Explore quick self-service actions or reach our 24/7 dedicated support team.
         </p>
       </div>
 
       {/* Quick Action Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
         {HELP_TOPICS.map((topic, idx) => {
           const Icon = topic.icon;
           const isOpen = openTopic === idx;
@@ -56,18 +56,18 @@ export default function CustomerServicePage() {
           return (
             <div
               key={topic.title}
-              className={`bg-surface rounded-xl border p-5 transition-all cursor-pointer ${
+              className={`bg-surface rounded-xl border p-4 sm:p-5 transition-all cursor-pointer ${
                 isOpen ? "border-amazon-amber shadow-md" : "border-border hover:border-gray-400"
               }`}
               onClick={() => setOpenTopic(isOpen ? null : idx)}
             >
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-lg bg-amazon-amber/15 text-amazon-amber flex items-center justify-center shrink-0">
-                  <Icon className="w-5 h-5" />
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-amazon-amber/15 text-amazon-amber flex items-center justify-center shrink-0">
+                  <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-bold text-sm text-text-primary">{topic.title}</h3>
+                    <h3 className="font-bold text-xs sm:text-sm text-text-primary">{topic.title}</h3>
                     <ChevronDown
                       className={`w-4 h-4 text-text-muted transition-transform ${
                         isOpen ? "rotate-180" : ""
@@ -79,7 +79,7 @@ export default function CustomerServicePage() {
               </div>
 
               {isOpen && (
-                <div className="mt-4 pt-4 border-t border-border text-xs text-text-secondary leading-relaxed animate-fade-in">
+                <div className="mt-3 pt-3 sm:mt-4 sm:pt-4 border-t border-border text-xs text-text-secondary leading-relaxed animate-fade-in">
                   {topic.content}
                 </div>
               )}
@@ -89,21 +89,21 @@ export default function CustomerServicePage() {
       </div>
 
       {/* Contact Concierge Support Banner */}
-      <div className="bg-surface rounded-xl border border-border p-6 flex flex-col sm:flex-row items-center justify-between gap-4 bg-gradient-to-r from-surface to-surface-secondary">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-full bg-status-success/15 text-status-success flex items-center justify-center shrink-0">
-            <Headphones className="w-6 h-6" />
+      <div className="bg-surface rounded-xl border border-border p-4 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 bg-gradient-to-r from-surface to-surface-secondary">
+        <div className="flex items-center gap-3 text-center sm:text-left flex-col sm:flex-row">
+          <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-status-success/15 text-status-success flex items-center justify-center shrink-0">
+            <Headphones className="w-5 h-5 sm:w-6 sm:h-6" />
           </div>
           <div>
-            <h3 className="font-bold text-base text-text-primary">Need direct assistance?</h3>
+            <h3 className="font-bold text-sm sm:text-base text-text-primary">Need direct assistance?</h3>
             <p className="text-xs text-text-secondary">
               Our 24/7 customer care concierge is available via live chat and phone.
             </p>
           </div>
         </div>
 
-        <Link href="/orders">
-          <Button variant="amazon-yellow" size="md">
+        <Link href="/orders" className="w-full sm:w-auto">
+          <Button variant="amazon-yellow" size="md" className="w-full sm:w-auto">
             Go to Your Orders
           </Button>
         </Link>

@@ -19,7 +19,7 @@ export default function ShopLayout({
         <Subnav />
       </Suspense>
       
-      <main className="flex-1 max-w-[1500px] w-full mx-auto p-4 sm:p-6">
+      <main className="flex-1 max-w-[1500px] w-full mx-auto px-2.5 sm:px-4 md:px-6 py-4 pb-20 md:pb-8">
         {children}
       </main>
 

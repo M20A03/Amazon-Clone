@@ -40,21 +40,21 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   return (
     <div className="space-y-4">
       {/* Breadcrumb Bar */}
-      <nav className="flex items-center gap-1.5 text-xs text-text-secondary" aria-label="Breadcrumb">
-        <Link href="/" className="hover:underline">
+      <nav className="flex items-center gap-1.5 text-xs text-text-secondary overflow-x-auto whitespace-nowrap no-scrollbar py-1" aria-label="Breadcrumb">
+        <Link href="/" className="hover:underline shrink-0">
           Home
         </Link>
-        <ChevronRight className="w-3.5 h-3.5" />
-        <Link href={`/?category=${product.category}`} className="hover:underline">
+        <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+        <Link href={`/?category=${product.category}`} className="hover:underline shrink-0">
           {product.category}
         </Link>
         {product.subCategory && (
           <>
-            <ChevronRight className="w-3.5 h-3.5" />
-            <span>{product.subCategory}</span>
+            <ChevronRight className="w-3.5 h-3.5 shrink-0" />
+            <span className="shrink-0">{product.subCategory}</span>
           </>
         )}
-        <ChevronRight className="w-3.5 h-3.5" />
+        <ChevronRight className="w-3.5 h-3.5 shrink-0" />
         <span className="text-text-primary font-medium truncate max-w-xs">{product.title}</span>
       </nav>
 

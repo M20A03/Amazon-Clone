@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAppState } from "@/lib/state-store";
 import { Button } from "@/components/ui/button";
-import { Lock, Mail, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 function LoginForm() {
   const router = useRouter();
@@ -41,16 +41,16 @@ function LoginForm() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-background">
       {/* Amazon Logo */}
-      <Link href="/" className="mb-6">
-        <div className="flex items-center gap-1 font-black text-3xl tracking-tighter text-text-primary">
+      <Link href="/" className="mb-5 sm:mb-6">
+        <div className="flex items-center gap-0.5 font-black text-2xl sm:text-3xl tracking-tighter text-text-primary">
           <span>amazon</span>
-          <span className="text-amazon-orange text-sm font-bold pt-2">.in</span>
+          <span className="text-amazon-orange text-xs sm:text-sm font-bold pt-1 sm:pt-2">.in</span>
         </div>
       </Link>
 
       {/* Login Box */}
-      <div className="w-full max-w-sm bg-surface rounded-xl border border-border p-6 shadow-sm">
-        <h1 className="text-2xl font-semibold text-text-primary mb-5">Sign in</h1>
+      <div className="w-full max-w-sm bg-surface rounded-xl border border-border p-5 sm:p-6 shadow-sm">
+        <h1 className="text-xl sm:text-2xl font-semibold text-text-primary mb-4 sm:mb-5">Sign in</h1>
 
         {error && (
           <div className="p-3 mb-4 rounded-lg bg-status-error/10 border border-status-error/30 text-xs text-status-error font-medium">
@@ -69,7 +69,7 @@ function LoginForm() {
               onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="e.g. user@example.com"
-              className="w-full px-3 py-2 text-sm rounded-md border border-border bg-surface text-text-primary outline-none focus:border-amazon-amber focus:ring-1 focus:ring-amazon-amber"
+              className="w-full px-3 py-2 text-base sm:text-sm rounded-md border border-border bg-surface text-text-primary outline-none focus:border-amazon-amber focus:ring-1 focus:ring-amazon-amber"
             />
           </div>
 
@@ -86,7 +86,7 @@ function LoginForm() {
               onChange={(e) => setPassword(e.target.value)}
               required
               placeholder="At least 6 characters"
-              className="w-full px-3 py-2 text-sm rounded-md border border-border bg-surface text-text-primary outline-none focus:border-amazon-amber focus:ring-1 focus:ring-amazon-amber"
+              className="w-full px-3 py-2 text-base sm:text-sm rounded-md border border-border bg-surface text-text-primary outline-none focus:border-amazon-amber focus:ring-1 focus:ring-amazon-amber"
             />
           </div>
 
@@ -94,7 +94,7 @@ function LoginForm() {
             type="submit"
             variant="amazon-yellow"
             size="lg"
-            className="w-full font-bold shadow-sm"
+            className="w-full font-bold shadow-sm text-sm sm:text-base"
             isLoading={isLoading}
             rightIcon={<ArrowRight className="w-4 h-4" />}
           >
@@ -108,7 +108,7 @@ function LoginForm() {
       </div>
 
       {/* Divider */}
-      <div className="w-full max-w-sm my-6 flex items-center gap-3">
+      <div className="w-full max-w-sm my-5 sm:my-6 flex items-center gap-3">
         <hr className="flex-1 border-border" />
         <span className="text-xs text-text-muted">New to Amazon?</span>
         <hr className="flex-1 border-border" />
@@ -117,7 +117,7 @@ function LoginForm() {
       {/* Create Account Link */}
       <div className="w-full max-w-sm">
         <Link href={`/signup${redirectPath !== "/" ? `?redirect=${redirectPath}` : ""}`}>
-          <Button variant="secondary" size="md" className="w-full">
+          <Button variant="secondary" size="md" className="w-full text-xs sm:text-sm">
             Create your Amazon account
           </Button>
         </Link>
