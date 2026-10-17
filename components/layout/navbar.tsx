@@ -262,7 +262,10 @@ export function Navbar() {
             >
               <div className="relative">
                 <ShoppingCart className="w-6 h-6 sm:w-7 sm:h-7" />
-                <span className="absolute -top-1 left-2 sm:left-3 bg-amazon-orange text-gray-900 text-[10px] sm:text-xs font-extrabold w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow">
+                <span
+                  key={cartCount}
+                  className="absolute -top-1 left-2 sm:left-3 bg-amazon-orange text-gray-900 text-[10px] sm:text-xs font-extrabold w-4 h-4 sm:w-5 sm:h-5 rounded-full flex items-center justify-center shadow transition-transform duration-300 hover:scale-125 animate-in zoom-in-75"
+                >
                   {cartCount}
                 </span>
               </div>

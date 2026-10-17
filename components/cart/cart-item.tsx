@@ -9,15 +9,18 @@ import { formatCurrency } from "@/lib/utils";
 export function CartItemRow({ item }: { item: CartItemType }) {
   const { updateQuantity, removeFromCart, currency } = useAppState();
 
+  const [imgSrc, setImgSrc] = React.useState(item.product.image);
+
   return (
     <div className="flex gap-3 py-4 border-b border-border text-sm">
       {/* Product Image */}
       <div className="relative w-20 h-20 shrink-0 bg-white rounded-md border border-border overflow-hidden">
         <Image
-          src={item.product.image}
+          src={imgSrc}
           alt={item.product.title}
           fill
           sizes="80px"
+          onError={() => setImgSrc("/amzn17.webp")}
           className="object-contain p-1"
         />
       </div>

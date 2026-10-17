@@ -27,28 +27,30 @@ export function ProductCard({ product, priority = false }: { product: Product; p
   const discountPercent = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
+  const [imgSrc, setImgSrc] = useState(product.image);
 
   return (
-    <div className="group bg-surface rounded-lg border border-border hover:shadow-lg transition-all duration-200 flex flex-col justify-between overflow-hidden p-2.5 sm:p-4 relative">
+    <div className="spatial-card group bg-surface rounded-xl border border-border/80 hover:border-amazon-amber/60 hover:shadow-2xl transition-all duration-300 flex flex-col justify-between overflow-hidden p-2.5 sm:p-4 relative">
       <div>
         {/* Badges Bar */}
-        <div className="flex items-center gap-1 mb-1.5 sm:mb-2 min-h-[20px] sm:min-h-[24px] flex-wrap">
+        <div className="flex items-center gap-1 mb-1.5 sm:mb-2 min-h-[20px] sm:min-h-[24px] flex-wrap spatial-pop">
           {product.isBestSeller && <Badge variant="bestseller" className="text-[9px] sm:text-[10px] px-1.5 py-0.5">#1 Best Seller</Badge>}
           {discountPercent > 0 && <Badge variant="deal" className="text-[9px] sm:text-[10px] px-1.5 py-0.5">Limited deal</Badge>}
         </div>
 
-        {/* Product Image Link (Parallel route / Intercepting modal trigger) */}
+        {/* Product Image Link with 3D Pop */}
         <Link
           href={`/product/${product.id}`}
-          className="relative w-full h-36 sm:h-48 md:h-52 bg-white rounded-md flex items-center justify-center p-2 block overflow-hidden border border-border/50 group-hover:border-amazon-amber/50 transition-colors"
+          className="spatial-pop relative w-full h-36 sm:h-48 md:h-52 bg-white rounded-lg flex items-center justify-center p-2 block overflow-hidden border border-border/50 group-hover:border-amazon-amber/50 transition-colors shadow-sm"
           aria-label={`View details for ${product.title}`}
         >
           <Image
-            src={product.image}
+            src={imgSrc}
             alt={product.title}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             priority={priority}
+            onError={() => setImgSrc("/amzn17.webp")}
             className="object-contain p-1.5 sm:p-2 group-hover:scale-105 transition-transform duration-300"
           />
         </Link>

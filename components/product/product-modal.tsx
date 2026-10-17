@@ -66,6 +66,7 @@ export function ProductModalContent({ product, isModal = true }: { product: Prod
               fill
               sizes="(max-width: 768px) 100vw, 40vw"
               priority
+              onError={() => setSelectedImage("/amzn17.webp")}
               className="object-contain p-2"
             />
           </div>
