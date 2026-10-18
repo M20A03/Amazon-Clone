@@ -31,7 +31,8 @@ interface MobileDrawerProps {
 
 export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
   const router = useRouter();
-  const { user, logout, country, currency, setIsLocationModalOpen } = useAppState();
+  const { user, logout, country, currency, setIsLocationModalOpen } =
+    useAppState();
   const { resolvedTheme, toggleTheme } = useTheme();
 
   // Close on Escape key
@@ -45,15 +46,33 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
-  // Lock body scroll
+  // Bulletproof mobile body scroll lock with scroll preservation
   useEffect(() => {
     if (isOpen) {
+      const scrollY = window.scrollY;
       document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+      document.body.style.top = `-${scrollY}px`;
     } else {
-      document.body.style.overflow = "unset";
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      }
     }
     return () => {
-      document.body.style.overflow = "unset";
+      const scrollY = document.body.style.top;
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+      document.body.style.top = "";
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+      }
     };
   }, [isOpen]);
 
@@ -89,7 +108,10 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
               <p className="text-xs text-gray-300">
                 {user ? "Welcome back," : "Hello, Sign In"}
               </p>
-              <h2 id="mobile-nav-title" className="text-base font-bold text-white truncate max-w-[170px]">
+              <h2
+                id="mobile-nav-title"
+                className="text-base font-bold text-white truncate max-w-[170px]"
+              >
                 {user ? user.name : "Browse Amazon"}
               </h2>
             </div>
@@ -109,8 +131,12 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
           {!user && (
             <div className="p-4 bg-surface-secondary flex items-center justify-between">
               <div>
-                <p className="font-bold text-xs text-text-primary">Your Account</p>
-                <p className="text-[11px] text-text-secondary">Sign in for personalized deals</p>
+                <p className="font-bold text-xs text-text-primary">
+                  Your Account
+                </p>
+                <p className="text-[11px] text-text-secondary">
+                  Sign in for personalized deals
+                </p>
               </div>
               <Link
                 href="/login"

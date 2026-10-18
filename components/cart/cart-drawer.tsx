@@ -51,7 +51,10 @@ export function CartDrawer() {
 
   const freeDeliveryThresholdINR = 499;
   const isFreeDelivery = cartSubtotalINR >= freeDeliveryThresholdINR;
-  const amountNeededForFreeDelivery = Math.max(0, freeDeliveryThresholdINR - cartSubtotalINR);
+  const amountNeededForFreeDelivery = Math.max(
+    0,
+    freeDeliveryThresholdINR - cartSubtotalINR,
+  );
 
   return (
     <div
@@ -68,7 +71,10 @@ export function CartDrawer() {
         <div className="flex items-center justify-between px-4 py-3 sm:px-5 sm:py-4 border-b border-border bg-surface-secondary">
           <div className="flex items-center gap-2">
             <ShoppingBag className="w-5 h-5 text-amazon-amber" />
-            <h2 id="cart-drawer-title" className="text-sm sm:text-base font-bold text-text-primary">
+            <h2
+              id="cart-drawer-title"
+              className="text-sm sm:text-base font-bold text-text-primary"
+            >
               Shopping Cart ({cartCount})
             </h2>
           </div>
@@ -81,21 +87,33 @@ export function CartDrawer() {
           </button>
         </div>
 
-        {/* Free delivery promo banner */}
-        <div className="bg-surface-secondary px-4 py-2 sm:px-5 sm:py-2.5 border-b border-border text-xs">
+        {/* Free delivery promo banner with progress bar */}
+        <div className="bg-surface-secondary px-4 py-2.5 sm:px-5 border-b border-border text-xs">
           {isFreeDelivery ? (
-            <p className="text-status-success font-medium flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 shrink-0" />
-              <span>Your order qualifies for <strong>FREE Delivery</strong></span>
+            <p className="text-status-success font-medium flex items-center gap-1.5 mb-1.5">
+              <ShieldCheck className="w-4 h-4 shrink-0 text-status-success" />
+              <span>
+                Your order qualifies for <strong>FREE Delivery</strong>
+              </span>
             </p>
           ) : (
-            <p className="text-text-secondary">
-              Add{" "}
-              <strong className="text-amazon-price">
-                {formatCurrency(amountNeededForFreeDelivery, currency)}
-              </strong>{" "}
-              of eligible items to get <strong>FREE Delivery</strong>.
-            </p>
+            <div className="space-y-1.5">
+              <p className="text-text-secondary text-[11px] sm:text-xs">
+                Add{" "}
+                <strong className="text-amazon-price">
+                  {formatCurrency(amountNeededForFreeDelivery, currency)}
+                </strong>{" "}
+                more to unlock <strong>FREE Delivery</strong>.
+              </p>
+              <div className="h-1.5 w-full bg-border/60 rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-amazon-amber rounded-full transition-all duration-300"
+                  style={{
+                    width: `${Math.min(100, (cartSubtotalINR / freeDeliveryThresholdINR) * 100)}%`,
+                  }}
+                />
+              </div>
+            </div>
           )}
         </div>
 
@@ -121,20 +139,49 @@ export function CartDrawer() {
               </Button>
             </div>
           ) : (
-            cart.map((item) => <CartItemRow key={item.product.id} item={item} />)
+            cart.map((item) => (
+              <CartItemRow key={item.product.id} item={item} />
+            ))
           )}
         </div>
 
-        {/* Footer & Checkout CTA */}
+        {/* Footer & Checkout CTA with Dynamic Recalculation */}
         {cart.length > 0 && (
           <div className="p-4 sm:p-5 border-t border-border bg-surface-secondary space-y-3 pb-safe">
-            <div className="flex items-baseline justify-between text-sm sm:text-base">
-              <span className="text-text-secondary text-xs sm:text-sm">
-                Subtotal ({cartCount} {cartCount === 1 ? "item" : "items"}):
-              </span>
-              <span className="font-extrabold text-amazon-price text-base sm:text-lg">
-                {formatCurrency(cartSubtotalINR, currency)}
-              </span>
+            {/* Itemized Calculation Summary */}
+            <div className="space-y-1.5 text-xs text-text-secondary border-b border-border/60 pb-3">
+              <div className="flex justify-between">
+                <span>Items ({cartCount}):</span>
+                <span>{formatCurrency(cartSubtotalINR, currency)}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Delivery:</span>
+                <span
+                  className={
+                    isFreeDelivery ? "text-status-success font-semibold" : ""
+                  }
+                >
+                  {isFreeDelivery ? "FREE" : formatCurrency(40, currency)}
+                </span>
+              </div>
+              <div className="flex justify-between text-[11px] text-text-muted">
+                <span>Estimated GST (included):</span>
+                <span>
+                  {formatCurrency(
+                    Math.round((cartSubtotalINR * 0.18) / 1.18),
+                    currency,
+                  )}
+                </span>
+              </div>
+              <div className="flex justify-between font-extrabold text-sm sm:text-base text-text-primary pt-1 border-t border-border/40">
+                <span>Order Total:</span>
+                <span className="text-amazon-price">
+                  {formatCurrency(
+                    cartSubtotalINR + (isFreeDelivery ? 0 : 40),
+                    currency,
+                  )}
+                </span>
+              </div>
             </div>
 
             <Button
@@ -144,7 +191,8 @@ export function CartDrawer() {
               onClick={handleProceedToCheckout}
               rightIcon={<ArrowRight className="w-4 h-4" />}
             >
-              Proceed to Checkout
+              Proceed to Checkout ({cartCount}{" "}
+              {cartCount === 1 ? "item" : "items"})
             </Button>
 
             <p className="text-[10px] sm:text-[11px] text-center text-text-muted">
