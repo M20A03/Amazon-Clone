@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import {
   X,
   User,
@@ -31,9 +31,22 @@ interface MobileDrawerProps {
 
 export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const { user, logout, country, currency, setIsLocationModalOpen } =
     useAppState();
   const { resolvedTheme, toggleTheme } = useTheme();
+
+  // Automatically close drawer when route changes
+  useEffect(() => {
+    onClose();
+  }, [pathname]);
+
+  // Safe delayed close to allow mobile browser touch navigation to register cleanly
+  const handleLinkClick = () => {
+    setTimeout(() => {
+      onClose();
+    }, 120);
+  };
 
   // Close on Escape key
   useEffect(() => {
@@ -79,12 +92,14 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
   if (!isOpen) return null;
 
   const handleCategoryClick = (category: string) => {
-    onClose();
     if (category === "All") {
       router.push("/");
     } else {
       router.push(`/?category=${encodeURIComponent(category)}`);
     }
+    setTimeout(() => {
+      onClose();
+    }, 120);
   };
 
   return (
@@ -140,7 +155,7 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
               </div>
               <Link
                 href="/login"
-                onClick={onClose}
+                onClick={handleLinkClick}
                 className="bg-amazon-yellow text-gray-900 font-bold px-3 py-1.5 rounded-md text-xs hover:bg-amazon-yellowHover shadow-xs"
               >
                 Sign In
@@ -239,7 +254,7 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
             </h3>
             <Link
               href="/orders"
-              onClick={onClose}
+              onClick={handleLinkClick}
               className="w-full flex items-center justify-between px-5 py-2.5 hover:bg-surface-secondary text-left text-text-primary text-xs font-medium"
             >
               <div className="flex items-center gap-2.5">
@@ -250,7 +265,7 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
             </Link>
             <Link
               href="/customer-service"
-              onClick={onClose}
+              onClick={handleLinkClick}
               className="w-full flex items-center justify-between px-5 py-2.5 hover:bg-surface-secondary text-left text-text-primary text-xs font-medium"
             >
               <div className="flex items-center gap-2.5">
