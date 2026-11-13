@@ -1,4 +1,4 @@
-# Amazon Clone — 2026 Spatial E-Commerce Platform
+# Amazon Clone: 2026 Spatial E-Commerce Platform
 
 <div align="center">
 
@@ -6,29 +6,28 @@
 ![Platform](https://img.shields.io/badge/Platform-Vercel-0070F3?style=for-the-badge)
 [![Author](https://img.shields.io/badge/Author-Mayank_Raj-orange?style=for-the-badge&logo=github)](https://github.com/M20A03)
 ![Maintenance](https://img.shields.io/badge/Maintained-Yes-success?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-purple?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
 
 </div>
 
 ---
 
-## 📖 Overview
+## Overview
 
 High-performance enterprise Next.js e-commerce storefront featuring spatial card physics, fluid cart drawer micro-interactions, responsive checkout flows, and sub-100ms page transitions.
 
-## 🚀 Live Demo & Production URL
+## Live Demo and Production URL
 
 Experience the live, active production deployment in your browser:
 
-> 🌐 **Verified Active Production Link:**  
+> **Verified Active Production Link:**  
 > **[https://shadow-fox-e-commerce.vercel.app/](https://shadow-fox-e-commerce.vercel.app/)**
 
-*Status:* `200 OK — Production Active & Connected`
-
+_Status:_ `200 OK: Production Active & Connected`
 
 ---
 
-## ✨ Key Features
+## Key Features
 
 - **Hardware-accelerated hero carousels with fluid touch-swipe gestures**
 - **Obsidian (#131921) dark aesthetic with Prime Gold (#FF9900) spatial accents**
@@ -38,7 +37,7 @@ Experience the live, active production deployment in your browser:
 
 ---
 
-## 📱 2026 Spatial Web & Mobile Viewport Specifications
+## Spatial Web and Mobile Viewport Specifications
 
 - **Precision Viewport Scaling:** Optimized across 360px–393px (iPhone 15/16 Pro), 393px–430px (Pro Max / Pixel 9), and 768px+ tablets with 48px touch ergonomic targets and safe-area insets.
 - **Touch Ergonomics:** Enforces standard 48px minimum interactive tap boundaries across all buttons, inputs, and navigation drawers.
@@ -47,21 +46,22 @@ Experience the live, active production deployment in your browser:
 
 ---
 
-## 🛠️ Tech Stack & Architecture
+## Tech Stack & Architecture
 
-| Layer | Technology |
-| :--- | :--- |
-| **Framework / Runtime** | `Next.js 14 / React 18` |
-| **Styling & Design System** | `Tailwind CSS & Glassmorphism` |
-| **Deployment & Hosting** | `Vercel` |
-| **Repository** | [https://github.com/M20A03/Amazon-Clone](https://github.com/M20A03/Amazon-Clone) |
-| **Author** | [Mayank Raj (@M20A03)](https://github.com/M20A03) |
+| Layer                       | Technology                                                                       |
+| :-------------------------- | :------------------------------------------------------------------------------- |
+| **Framework / Runtime**     | `Next.js 14 / React 18`                                                          |
+| **Styling & Design System** | `Tailwind CSS & Glassmorphism`                                                   |
+| **Deployment & Hosting**    | `Vercel`                                                                         |
+| **Repository**              | [https://github.com/M20A03/Amazon-Clone](https://github.com/M20A03/Amazon-Clone) |
+| **Author**                  | [Mayank Raj (@M20A03)](https://github.com/M20A03)                                |
 
 ---
 
-## 💻 Getting Started Locally
+## Getting Started Locally
 
 ### Prerequisites
+
 - Node.js (v18.0.0 or higher) / Python 3.10+ (where applicable)
 - Git installed on your system
 
@@ -76,14 +76,15 @@ npm run dev
 
 ---
 
-## 👤 Author & Maintainer
+## Author and Maintainer
 
-**Mayank Raj**  
+**Mayank Raj**
+
 - **GitHub:** [@M20A03](https://github.com/M20A03)
 - **Email:** `mayankrajgupta01@gmail.com`
 
 ---
 
 <div align="center">
-<sub>Crafted with precision • Production-Ready • 2026 Spatial Experience</sub>
+<sub>Crafted with precision • Production-Ready</sub>
 </div>

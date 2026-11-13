@@ -12,7 +12,6 @@ export function LocationModal() {
     isLocationModalOpen,
     setIsLocationModalOpen,
     country: currentCountry,
-    currency: currentCurrency,
     setCountryAndCurrency,
   } = useAppState();
 
@@ -25,7 +24,8 @@ export function LocationModal() {
     >
       <div className="space-y-4">
         <p className="text-sm text-text-secondary">
-          Delivery options, pricing, and currency will automatically update based on your selected region.
+          Delivery options, pricing, and currency will automatically update
+          based on your selected region.
         </p>
 
         <div className="divide-y divide-border border border-border rounded-lg overflow-hidden bg-surface">
@@ -35,7 +35,9 @@ export function LocationModal() {
             return (
               <button
                 key={c.code}
-                onClick={() => setCountryAndCurrency(c.name, c.currency as CurrencyCode)}
+                onClick={() =>
+                  setCountryAndCurrency(c.name, c.currency as CurrencyCode)
+                }
                 className={`w-full flex items-center justify-between p-3.5 text-left transition-colors hover:bg-surface-secondary ${
                   isSelected ? "bg-amazon-amber/10 font-semibold" : ""
                 }`}
@@ -68,7 +70,10 @@ export function LocationModal() {
 
         <div className="pt-2 text-xs text-text-muted flex items-center gap-1.5">
           <Globe className="w-3.5 h-3.5" />
-          <span>Cross-border shipping duties and customs calculated dynamically at checkout.</span>
+          <span>
+            Cross-border shipping duties and customs calculated dynamically at
+            checkout.
+          </span>
         </div>
       </div>
     </Modal>

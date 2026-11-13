@@ -3,26 +3,30 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Package, Truck, CheckCircle2, Clock, RotateCcw, ArrowRight, ExternalLink } from "lucide-react";
+import { Package, Truck, CheckCircle2 } from "lucide-react";
 import { useAppState } from "@/lib/state-store";
 import { formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 export default function OrdersPage() {
   const { orders, currency } = useAppState();
-  const [selectedOrderTracking, setSelectedOrderTracking] = useState<string | null>(
-    orders.length > 0 ? orders[0].id : null
-  );
+  const [selectedOrderTracking, setSelectedOrderTracking] = useState<
+    string | null
+  >(orders.length > 0 ? orders[0].id : null);
 
-  const activeTrackingOrder = orders.find((o) => o.id === selectedOrderTracking) || orders[0];
+  const activeTrackingOrder =
+    orders.find((o) => o.id === selectedOrderTracking) || orders[0];
 
   return (
     <div className="max-w-5xl mx-auto space-y-4 sm:space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-xl sm:text-2xl font-bold text-text-primary">Your Orders</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-text-primary">
+          Your Orders
+        </h1>
         <p className="text-xs text-text-secondary mt-1">
-          Track packages, initiate returns, download invoices, and reorder items.
+          Track packages, initiate returns, download invoices, and reorder
+          items.
         </p>
       </div>
 
@@ -35,7 +39,8 @@ export default function OrdersPage() {
             You have no past orders
           </h2>
           <p className="text-xs text-text-secondary max-w-sm mb-4 sm:mb-6">
-            When you place an order, your tracking details, invoices, and delivery status will appear here.
+            When you place an order, your tracking details, invoices, and
+            delivery status will appear here.
           </p>
           <Link href="/">
             <Button variant="amazon-yellow" size="md">
@@ -54,26 +59,34 @@ export default function OrdersPage() {
                 <div
                   key={order.id}
                   className={`bg-surface rounded-xl border transition-all overflow-hidden ${
-                    isSelected ? "border-amazon-amber shadow-md" : "border-border hover:border-gray-400"
+                    isSelected
+                      ? "border-amazon-amber shadow-md"
+                      : "border-border hover:border-gray-400"
                   }`}
                 >
                   {/* Order Card Header */}
                   <div className="bg-surface-secondary px-3.5 py-3 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
                     <div className="grid grid-cols-3 sm:flex sm:gap-6 gap-2">
                       <div>
-                        <span className="text-text-muted text-[10px] sm:text-xs block">PLACED</span>
+                        <span className="text-text-muted text-[10px] sm:text-xs block">
+                          PLACED
+                        </span>
                         <span className="font-semibold text-text-primary text-xs">
                           {new Date(order.createdAt).toLocaleDateString()}
                         </span>
                       </div>
                       <div>
-                        <span className="text-text-muted text-[10px] sm:text-xs block">TOTAL</span>
+                        <span className="text-text-muted text-[10px] sm:text-xs block">
+                          TOTAL
+                        </span>
                         <span className="font-semibold text-amazon-price text-xs">
                           {formatCurrency(order.totalAmountINR, currency)}
                         </span>
                       </div>
                       <div>
-                        <span className="text-text-muted text-[10px] sm:text-xs block">SHIP TO</span>
+                        <span className="text-text-muted text-[10px] sm:text-xs block">
+                          SHIP TO
+                        </span>
                         <span className="font-semibold text-text-primary truncate max-w-[100px] sm:max-w-[120px] block text-xs">
                           {order.shippingAddress.fullName}
                         </span>
@@ -81,7 +94,9 @@ export default function OrdersPage() {
                     </div>
 
                     <div className="flex sm:flex-col items-center sm:items-end justify-between pt-1 sm:pt-0 border-t sm:border-t-0 border-border/50">
-                      <span className="text-text-muted text-[10px] sm:text-xs">ORDER #{order.id}</span>
+                      <span className="text-text-muted text-[10px] sm:text-xs">
+                        ORDER #{order.id}
+                      </span>
                       <button
                         onClick={() => setSelectedOrderTracking(order.id)}
                         className="text-amazon-link hover:underline font-semibold text-xs"
@@ -94,7 +109,10 @@ export default function OrdersPage() {
                   {/* Order Items */}
                   <div className="p-3 sm:p-4 divide-y divide-border">
                     {order.items.map((item) => (
-                      <div key={item.product.id} className="py-3 first:pt-0 last:pb-0 flex gap-3 sm:gap-4">
+                      <div
+                        key={item.product.id}
+                        className="py-3 first:pt-0 last:pb-0 flex gap-3 sm:gap-4"
+                      >
                         <div className="relative w-14 h-14 sm:w-16 sm:h-16 bg-white rounded border border-border overflow-hidden shrink-0">
                           <Image
                             src={item.product.image}
@@ -109,16 +127,25 @@ export default function OrdersPage() {
                             {item.product.title}
                           </h4>
                           <div className="text-xs text-text-secondary mt-1">
-                            Qty: {item.quantity} • {formatCurrency(item.product.price, currency)}
+                            Qty: {item.quantity} •{" "}
+                            {formatCurrency(item.product.price, currency)}
                           </div>
                           <div className="flex flex-wrap items-center gap-2 mt-2">
                             <Link href={`/product/${item.product.id}`}>
-                              <Button variant="amazon-yellow" size="sm" className="text-xs py-1 px-2.5">
+                              <Button
+                                variant="amazon-yellow"
+                                size="sm"
+                                className="text-xs py-1 px-2.5"
+                              >
                                 Buy again
                               </Button>
                             </Link>
                             <Link href="/customer-service">
-                              <Button variant="outline" size="sm" className="text-xs py-1 px-2.5">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="text-xs py-1 px-2.5"
+                              >
                                 Return item
                               </Button>
                             </Link>
@@ -167,8 +194,8 @@ export default function OrdersPage() {
                             step.completed
                               ? "border-status-success text-status-success"
                               : step.current
-                              ? "border-amazon-amber text-amazon-amber animate-pulse"
-                              : "border-border text-text-muted"
+                                ? "border-amazon-amber text-amazon-amber animate-pulse"
+                                : "border-border text-text-muted"
                           }`}
                         >
                           {step.completed ? (
@@ -183,13 +210,15 @@ export default function OrdersPage() {
                               step.completed
                                 ? "text-text-primary"
                                 : step.current
-                                ? "text-amazon-amber"
-                                : "text-text-muted"
+                                  ? "text-amazon-amber"
+                                  : "text-text-muted"
                             }`}
                           >
                             {step.title}
                           </p>
-                          <p className="text-[10px] sm:text-[11px] text-text-secondary">{step.time}</p>
+                          <p className="text-[10px] sm:text-[11px] text-text-secondary">
+                            {step.time}
+                          </p>
                         </div>
                       </div>
                     ))}
@@ -198,15 +227,21 @@ export default function OrdersPage() {
 
                 {/* Delivery Address Details */}
                 <div className="bg-surface-secondary p-3 rounded-lg border border-border text-xs space-y-1">
-                  <span className="text-text-muted font-bold block mb-1">Shipping Address:</span>
+                  <span className="text-text-muted font-bold block mb-1">
+                    Shipping Address:
+                  </span>
                   <p className="font-semibold text-text-primary">
                     {activeTrackingOrder.shippingAddress.fullName}
                   </p>
                   <p className="text-text-secondary">
-                    {activeTrackingOrder.shippingAddress.street}, {activeTrackingOrder.shippingAddress.city},{" "}
-                    {activeTrackingOrder.shippingAddress.state} {activeTrackingOrder.shippingAddress.postalCode}
+                    {activeTrackingOrder.shippingAddress.street},{" "}
+                    {activeTrackingOrder.shippingAddress.city},{" "}
+                    {activeTrackingOrder.shippingAddress.state}{" "}
+                    {activeTrackingOrder.shippingAddress.postalCode}
                   </p>
-                  <p className="text-text-secondary">{activeTrackingOrder.shippingAddress.country}</p>
+                  <p className="text-text-secondary">
+                    {activeTrackingOrder.shippingAddress.country}
+                  </p>
                 </div>
               </div>
             </div>

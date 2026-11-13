@@ -15,7 +15,7 @@ const BOT_USER_AGENTS = [
 // Protected Routes requiring authentication
 const PROTECTED_ROUTES = ["/account", "/orders/history"];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const userAgent = request.headers.get("user-agent")?.toLowerCase() || "";
   const isBot = BOT_USER_AGENTS.some((bot) => userAgent.includes(bot));
@@ -26,10 +26,16 @@ export function middleware(request: NextRequest) {
   // 1. Bot & Search Engine Crawler Optimization
   // =========================================================================
   if (isBot) {
-    response.headers.set("X-Robots-Tag", "index, follow, max-image-preview:large");
+    response.headers.set(
+      "X-Robots-Tag",
+      "index, follow, max-image-preview:large",
+    );
     response.headers.set("X-Bot-Detection", "true");
     // Serve with higher CDN cache efficiency for crawlers
-    response.headers.set("Cache-Control", "public, s-maxage=86400, stale-while-revalidate=604800");
+    response.headers.set(
+      "Cache-Control",
+      "public, s-maxage=86400, stale-while-revalidate=604800",
+    );
     return response;
   }
 
@@ -117,7 +123,9 @@ export function middleware(request: NextRequest) {
   // 4. Auth Route Guarding
   // =========================================================================
   const sessionToken = request.cookies.get("amazon_session");
-  const isProtectedPath = PROTECTED_ROUTES.some((route) => pathname.startsWith(route));
+  const isProtectedPath = PROTECTED_ROUTES.some((route) =>
+    pathname.startsWith(route),
+  );
 
   if (isProtectedPath && !sessionToken) {
     const loginUrl = new URL("/login", request.url);

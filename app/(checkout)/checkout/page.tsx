@@ -8,20 +8,31 @@ import { useAppState } from "@/lib/state-store";
 import { formatCurrency, getEstimatedDeliveryDate } from "@/lib/utils";
 import { IdempotencyManager } from "@/lib/idempotency";
 import { Button } from "@/components/ui/button";
-import { ShieldCheck, Lock, CreditCard, Truck, AlertCircle, ArrowLeft } from "lucide-react";
+import {
+  ShieldCheck,
+  Lock,
+  CreditCard,
+  Truck,
+  AlertCircle,
+  ArrowLeft,
+} from "lucide-react";
 
 export default function CheckoutPage() {
   const router = useRouter();
   const { cart, cartSubtotalINR, currency, createOrder, user } = useAppState();
 
   const [fullName, setFullName] = useState(user?.name || "Mayank Raj");
-  const [street, setStreet] = useState("Flat 402, Prestige Tower, Outer Ring Rd");
+  const [street, setStreet] = useState(
+    "Flat 402, Prestige Tower, Outer Ring Rd",
+  );
   const [city, setCity] = useState("Bengaluru");
   const [state, setState] = useState("Karnataka");
   const [postalCode, setPostalCode] = useState("560103");
   const [country, setCountry] = useState("India");
 
-  const [paymentMethod, setPaymentMethod] = useState<"card" | "upi" | "cod">("card");
+  const [paymentMethod, setPaymentMethod] = useState<"card" | "upi" | "cod">(
+    "card",
+  );
   const [cardNumber, setCardNumber] = useState("4532 •••• •••• 8821");
   const [cardExpiry, setCardExpiry] = useState("12/28");
   const [cardCvv, setCardCvv] = useState("•••");
@@ -29,7 +40,9 @@ export default function CheckoutPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
-  const [idempotencyKey] = useState(() => IdempotencyManager.generateKey("checkout_ord"));
+  const [idempotencyKey] = useState(() =>
+    IdempotencyManager.generateKey("checkout_ord"),
+  );
 
   const delivery = getEstimatedDeliveryDate(2);
   const shippingFeeINR = cartSubtotalINR >= 499 ? 0 : 40;
@@ -38,13 +51,17 @@ export default function CheckoutPage() {
   const handlePlaceOrder = async (e: React.FormEvent) => {
     e.preventDefault();
     if (cart.length === 0) {
-      setSubmitError("Your cart is empty. Please add items before checking out.");
+      setSubmitError(
+        "Your cart is empty. Please add items before checking out.",
+      );
       return;
     }
 
     // Check idempotency lock
     if (IdempotencyManager.isLocked(idempotencyKey)) {
-      console.warn("Duplicate checkout submission blocked by IdempotencyManager.");
+      console.warn(
+        "Duplicate checkout submission blocked by IdempotencyManager.",
+      );
       return;
     }
 
@@ -69,7 +86,8 @@ export default function CheckoutPage() {
           },
           paymentMethod: {
             cardLast4: cardNumber.slice(-4) || "8821",
-            cardBrand: paymentMethod === "card" ? "Visa" : paymentMethod.toUpperCase(),
+            cardBrand:
+              paymentMethod === "card" ? "Visa" : paymentMethod.toUpperCase(),
           },
           estimatedDelivery: delivery.dateString,
         });
@@ -80,7 +98,9 @@ export default function CheckoutPage() {
       router.push("/orders");
     } catch (err: unknown) {
       console.error("Order placement failed:", err);
-      setSubmitError("Payment processing error. Your card was not charged. Please try again.");
+      setSubmitError(
+        "Payment processing error. Your card was not charged. Please try again.",
+      );
       setIsSubmitting(false);
     }
   };
@@ -89,9 +109,12 @@ export default function CheckoutPage() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 bg-background">
         <div className="bg-surface p-6 sm:p-8 rounded-xl border border-border text-center max-w-md shadow-sm">
-          <h2 className="text-lg sm:text-xl font-bold text-text-primary mb-2">Your Cart is Empty</h2>
+          <h2 className="text-lg sm:text-xl font-bold text-text-primary mb-2">
+            Your Cart is Empty
+          </h2>
           <p className="text-xs text-text-secondary mb-6">
-            There are no items to checkout. Browse our catalog to find exciting deals!
+            There are no items to checkout. Browse our catalog to find exciting
+            deals!
           </p>
           <Link href="/">
             <Button variant="amazon-yellow" size="md">
@@ -108,13 +131,22 @@ export default function CheckoutPage() {
       {/* Distraction-Free Checkout Header */}
       <header className="bg-amazon-navy text-white border-b border-border py-2.5 sm:py-3 px-4 sm:px-6 sticky top-0 z-30 shadow">
         <div className="max-w-[1200px] mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-0.5 font-black text-xl sm:text-2xl tracking-tighter">
+          <Link
+            href="/"
+            className="flex items-center gap-0.5 font-black text-xl sm:text-2xl tracking-tighter"
+          >
             <span>amazon</span>
-            <span className="text-amazon-amber text-xs font-bold pt-1 sm:pt-2">.in</span>
+            <span className="text-amazon-amber text-xs font-bold pt-1 sm:pt-2">
+              .in
+            </span>
           </Link>
 
           <h1 className="text-sm sm:text-lg font-bold text-gray-200">
-            Checkout (<span className="text-amazon-amber">{cart.length} {cart.length === 1 ? "item" : "items"}</span>)
+            Checkout (
+            <span className="text-amazon-amber">
+              {cart.length} {cart.length === 1 ? "item" : "items"}
+            </span>
+            )
           </h1>
 
           <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-gray-300">
@@ -149,7 +181,9 @@ export default function CheckoutPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-xs">
               <div className="sm:col-span-2">
-                <label className="block font-bold text-text-primary mb-1">Full Name</label>
+                <label className="block font-bold text-text-primary mb-1">
+                  Full Name
+                </label>
                 <input
                   type="text"
                   value={fullName}
@@ -160,7 +194,9 @@ export default function CheckoutPage() {
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block font-bold text-text-primary mb-1">Street Address</label>
+                <label className="block font-bold text-text-primary mb-1">
+                  Street Address
+                </label>
                 <input
                   type="text"
                   value={street}
@@ -171,7 +207,9 @@ export default function CheckoutPage() {
               </div>
 
               <div>
-                <label className="block font-bold text-text-primary mb-1">City</label>
+                <label className="block font-bold text-text-primary mb-1">
+                  City
+                </label>
                 <input
                   type="text"
                   value={city}
@@ -182,7 +220,9 @@ export default function CheckoutPage() {
               </div>
 
               <div>
-                <label className="block font-bold text-text-primary mb-1">State / Province</label>
+                <label className="block font-bold text-text-primary mb-1">
+                  State / Province
+                </label>
                 <input
                   type="text"
                   value={state}
@@ -193,7 +233,9 @@ export default function CheckoutPage() {
               </div>
 
               <div>
-                <label className="block font-bold text-text-primary mb-1">Postal Code (PIN)</label>
+                <label className="block font-bold text-text-primary mb-1">
+                  Postal Code (PIN)
+                </label>
                 <input
                   type="text"
                   value={postalCode}
@@ -204,7 +246,9 @@ export default function CheckoutPage() {
               </div>
 
               <div>
-                <label className="block font-bold text-text-primary mb-1">Country</label>
+                <label className="block font-bold text-text-primary mb-1">
+                  Country
+                </label>
                 <input
                   type="text"
                   value={country}
@@ -231,7 +275,9 @@ export default function CheckoutPage() {
             <div className="space-y-2.5 sm:space-y-3">
               <label
                 className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
-                  paymentMethod === "card" ? "border-amazon-amber bg-amazon-amber/5" : "border-border"
+                  paymentMethod === "card"
+                    ? "border-amazon-amber bg-amazon-amber/5"
+                    : "border-border"
                 }`}
               >
                 <input
@@ -252,6 +298,17 @@ export default function CheckoutPage() {
 
                   {paymentMethod === "card" && (
                     <div className="grid grid-cols-2 gap-2.5 sm:gap-3 mt-3 pt-3 border-t border-border/60">
+                      <div className="col-span-2">
+                        <label className="block text-[11px] font-semibold text-text-primary mb-1">
+                          Name on Card
+                        </label>
+                        <input
+                          type="text"
+                          value={cardName}
+                          onChange={(e) => setCardName(e.target.value)}
+                          className="w-full px-2.5 py-2 text-sm rounded border border-border bg-surface outline-none focus:border-amazon-amber"
+                        />
+                      </div>
                       <div className="col-span-2">
                         <label className="block text-[11px] font-semibold text-text-primary mb-1">
                           Card Number
@@ -292,7 +349,9 @@ export default function CheckoutPage() {
 
               <label
                 className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
-                  paymentMethod === "upi" ? "border-amazon-amber bg-amazon-amber/5" : "border-border"
+                  paymentMethod === "upi"
+                    ? "border-amazon-amber bg-amazon-amber/5"
+                    : "border-border"
                 }`}
               >
                 <input
@@ -314,7 +373,9 @@ export default function CheckoutPage() {
 
               <label
                 className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
-                  paymentMethod === "cod" ? "border-amazon-amber bg-amazon-amber/5" : "border-border"
+                  paymentMethod === "cod"
+                    ? "border-amazon-amber bg-amazon-amber/5"
+                    : "border-border"
                 }`}
               >
                 <input
@@ -325,7 +386,9 @@ export default function CheckoutPage() {
                   className="mt-1 accent-amazon-orange"
                 />
                 <div>
-                  <div className="font-bold text-xs text-text-primary">Cash on Delivery (COD)</div>
+                  <div className="font-bold text-xs text-text-primary">
+                    Cash on Delivery (COD)
+                  </div>
                   <p className="text-[11px] text-text-secondary mt-0.5">
                     Pay at your doorstep via cash or card
                   </p>
@@ -359,7 +422,10 @@ export default function CheckoutPage() {
 
             <div className="divide-y divide-border">
               {cart.map((item) => (
-                <div key={item.product.id} className="py-3 flex items-center gap-3 sm:gap-4 text-xs">
+                <div
+                  key={item.product.id}
+                  className="py-3 flex items-center gap-3 sm:gap-4 text-xs"
+                >
                   <div className="relative w-12 h-12 sm:w-14 sm:h-14 bg-white rounded border border-border overflow-hidden shrink-0">
                     <Image
                       src={item.product.image}
@@ -370,11 +436,18 @@ export default function CheckoutPage() {
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-medium text-text-primary line-clamp-1">{item.product.title}</h4>
-                    <p className="text-text-secondary mt-0.5">Qty: {item.quantity}</p>
+                    <h4 className="font-medium text-text-primary line-clamp-1">
+                      {item.product.title}
+                    </h4>
+                    <p className="text-text-secondary mt-0.5">
+                      Qty: {item.quantity}
+                    </p>
                   </div>
                   <span className="font-bold text-amazon-price shrink-0">
-                    {formatCurrency(item.product.price * item.quantity, currency)}
+                    {formatCurrency(
+                      item.product.price * item.quantity,
+                      currency,
+                    )}
                   </span>
                 </div>
               ))}
@@ -396,12 +469,15 @@ export default function CheckoutPage() {
             </Button>
 
             <p className="text-[10px] sm:text-[11px] text-center text-text-muted">
-              By placing your order, you agree to Amazon&apos;s privacy notice and conditions of use.
+              By placing your order, you agree to Amazon&apos;s privacy notice
+              and conditions of use.
             </p>
 
             <hr className="border-border" />
 
-            <h3 className="text-xs sm:text-sm font-bold text-text-primary">Order Summary</h3>
+            <h3 className="text-xs sm:text-sm font-bold text-text-primary">
+              Order Summary
+            </h3>
 
             <div className="space-y-1.5 sm:space-y-2 text-xs text-text-secondary">
               <div className="flex justify-between">
@@ -410,7 +486,11 @@ export default function CheckoutPage() {
               </div>
               <div className="flex justify-between">
                 <span>Delivery:</span>
-                <span>{shippingFeeINR === 0 ? "FREE" : formatCurrency(shippingFeeINR, currency)}</span>
+                <span>
+                  {shippingFeeINR === 0
+                    ? "FREE"
+                    : formatCurrency(shippingFeeINR, currency)}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span>Total:</span>
@@ -426,12 +506,19 @@ export default function CheckoutPage() {
 
             <div className="flex items-baseline justify-between text-sm sm:text-base font-bold">
               <span className="text-text-primary">Order Total:</span>
-              <span className="text-lg sm:text-xl text-amazon-price">{formatCurrency(grandTotalINR, currency)}</span>
+              <span className="text-lg sm:text-xl text-amazon-price">
+                {formatCurrency(grandTotalINR, currency)}
+              </span>
             </div>
 
             <div className="bg-surface-secondary p-2.5 sm:p-3 rounded-lg border border-border text-[10px] sm:text-[11px] text-text-muted flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-status-success shrink-0" />
-              <span className="truncate">Idempotent ID: <strong className="font-mono">{idempotencyKey.slice(0, 12)}...</strong></span>
+              <span className="truncate">
+                Idempotent ID:{" "}
+                <strong className="font-mono">
+                  {idempotencyKey.slice(0, 12)}...
+                </strong>
+              </span>
             </div>
 
             <Link

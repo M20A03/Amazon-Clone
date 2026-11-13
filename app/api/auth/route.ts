@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
     if (!email) {
       return NextResponse.json(
         { success: false, error: "Email is required." },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
         action: action || "login",
         user,
       },
-      { status: 200 }
+      { status: 200 },
     );
 
     // Set HTTP-only secure cookie
@@ -39,10 +39,10 @@ export async function POST(request: NextRequest) {
     });
 
     return response;
-  } catch (err) {
+  } catch {
     return NextResponse.json(
       { success: false, error: "Authentication failed." },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

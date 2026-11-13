@@ -39,7 +39,7 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
   // Automatically close drawer when route changes
   useEffect(() => {
     onClose();
-  }, [pathname]);
+  }, [pathname, onClose]);
 
   // Safe delayed close to allow mobile browser touch navigation to register cleanly
   const handleLinkClick = () => {

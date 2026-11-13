@@ -1,7 +1,13 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState, useTransition } from "react";
-import { type Product, COUNTRIES } from "./data/products";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
+import { type Product } from "./data/products";
 import { type CurrencyCode, generateUUID } from "./utils";
 import { registerToastHandler, registerAuthErrorHandler } from "./fetcher";
 
@@ -75,17 +81,25 @@ interface StateContextType {
   // Country & Currency
   country: string;
   currency: CurrencyCode;
-  setCountryAndCurrency: (countryName: string, currencyCode: CurrencyCode) => void;
+  setCountryAndCurrency: (
+    countryName: string,
+    currencyCode: CurrencyCode,
+  ) => void;
   isLocationModalOpen: boolean;
   setIsLocationModalOpen: (open: boolean) => void;
 
   // Orders
   orders: Order[];
-  createOrder: (orderData: Omit<Order, "id" | "createdAt" | "status" | "trackingSteps">) => Promise<Order>;
+  createOrder: (
+    orderData: Omit<Order, "id" | "createdAt" | "status" | "trackingSteps">,
+  ) => Promise<Order>;
 
   // Toasts
   toasts: ToastMessage[];
-  addToast: (message: string, type?: "success" | "error" | "info" | "warning") => void;
+  addToast: (
+    message: string,
+    type?: "success" | "error" | "info" | "warning",
+  ) => void;
   removeToast: (id: string) => void;
 }
 
@@ -106,28 +120,39 @@ export function StateProvider({ children }: { children: React.ReactNode }) {
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
-  const [, startTransition] = useTransition();
+
+  const removeToast = useCallback((id: string) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  }, []);
 
   // Helper to trigger toast
-  const addToast = (message: string, type: "success" | "error" | "info" | "warning" = "info") => {
-    const id = generateUUID();
-    setToasts((prev) => [...prev, { id, message, type }]);
-    setTimeout(() => {
-      removeToast(id);
-    }, 4500);
-  };
-
-  const removeToast = (id: string) => {
-    setToasts((prev) => prev.filter((t) => t.id !== id));
-  };
+  const addToast = useCallback(
+    (
+      message: string,
+      type: "success" | "error" | "info" | "warning" = "info",
+    ) => {
+      const id = generateUUID();
+      setToasts((prev) => [...prev, { id, message, type }]);
+      setTimeout(() => {
+        removeToast(id);
+      }, 4500);
+    },
+    [removeToast],
+  );
 
   // Register global fetcher interceptor hooks
   useEffect(() => {
     registerToastHandler(addToast);
     registerAuthErrorHandler(() => {
-      logout();
+      setUser(null);
+      try {
+        localStorage.removeItem(USER_STORAGE_KEY);
+        document.cookie = `amazon_session=; path=/; max-age=0`;
+      } catch {}
+      broadcastSync("USER_SYNC", null);
+      addToast("Your session has expired. Please sign in again.", "warning");
     });
-  }, []);
+  }, [addToast]);
 
   // Initial client hydration from LocalStorage
   useEffect(() => {
@@ -156,7 +181,8 @@ export function StateProvider({ children }: { children: React.ReactNode }) {
 
   // Cross-tab synchronization via BroadcastChannel
   useEffect(() => {
-    if (typeof window === "undefined" || !("BroadcastChannel" in window)) return;
+    if (typeof window === "undefined" || !("BroadcastChannel" in window))
+      return;
 
     const channel = new BroadcastChannel("amazon_state_sync_channel");
 
@@ -201,7 +227,7 @@ export function StateProvider({ children }: { children: React.ReactNode }) {
         updated = prev.map((item) =>
           item.product.id === product.id
             ? { ...item, quantity: item.quantity + quantity }
-            : item
+            : item,
         );
       } else {
         updated = [...prev, { product, quantity }];
@@ -213,7 +239,10 @@ export function StateProvider({ children }: { children: React.ReactNode }) {
       return updated;
     });
 
-    addToast(`Added "${product.title.slice(0, 32)}..." to your Cart.`, "success");
+    addToast(
+      `Added "${product.title.slice(0, 32)}..." to your Cart.`,
+      "success",
+    );
     setIsCartDrawerOpen(true);
   };
 
@@ -226,7 +255,10 @@ export function StateProvider({ children }: { children: React.ReactNode }) {
       } catch {}
       broadcastSync("CART_SYNC", updated);
       if (itemToRemove) {
-        addToast(`Removed "${itemToRemove.product.title.slice(0, 32)}..." from Cart.`, "info");
+        addToast(
+          `Removed "${itemToRemove.product.title.slice(0, 32)}..." from Cart.`,
+          "info",
+        );
       }
       return updated;
     });
@@ -239,7 +271,7 @@ export function StateProvider({ children }: { children: React.ReactNode }) {
     }
     setCart((prev) => {
       const updated = prev.map((item) =>
-        item.product.id === productId ? { ...item, quantity } : item
+        item.product.id === productId ? { ...item, quantity } : item,
       );
       try {
         localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(updated));
@@ -290,7 +322,10 @@ export function StateProvider({ children }: { children: React.ReactNode }) {
   };
 
   // Country & Currency selector
-  const setCountryAndCurrency = (countryName: string, currencyCode: CurrencyCode) => {
+  const setCountryAndCurrency = (
+    countryName: string,
+    currencyCode: CurrencyCode,
+  ) => {
     setCountry(countryName);
     setCurrency(currencyCode);
     const geo = { country: countryName, currency: currencyCode };
@@ -300,13 +335,16 @@ export function StateProvider({ children }: { children: React.ReactNode }) {
       document.cookie = `geo_currency=${currencyCode}; path=/; max-age=31536000; SameSite=Lax`;
     } catch {}
     broadcastSync("GEO_SYNC", geo);
-    addToast(`Delivery destination updated to ${countryName} (${currencyCode})`, "info");
+    addToast(
+      `Delivery destination updated to ${countryName} (${currencyCode})`,
+      "info",
+    );
     setIsLocationModalOpen(false);
   };
 
   // Create Order
   const createOrder = async (
-    orderData: Omit<Order, "id" | "createdAt" | "status" | "trackingSteps">
+    orderData: Omit<Order, "id" | "createdAt" | "status" | "trackingSteps">,
   ): Promise<Order> => {
     const now = new Date();
     const newOrder: Order = {
@@ -315,10 +353,30 @@ export function StateProvider({ children }: { children: React.ReactNode }) {
       createdAt: now.toISOString(),
       status: "Out for Delivery",
       trackingSteps: [
-        { title: "Order Placed", time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }), completed: true },
-        { title: "Payment Verified (Idempotent)", time: "Just now", completed: true },
-        { title: "Packed at Amazon Fulfillment Center", time: "In Progress", completed: true },
-        { title: "Out for Delivery with Amazon Logistics", time: "Expected by 9:00 PM", completed: false, current: true },
+        {
+          title: "Order Placed",
+          time: now.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          completed: true,
+        },
+        {
+          title: "Payment Verified (Idempotent)",
+          time: "Just now",
+          completed: true,
+        },
+        {
+          title: "Packed at Amazon Fulfillment Center",
+          time: "In Progress",
+          completed: true,
+        },
+        {
+          title: "Out for Delivery with Amazon Logistics",
+          time: "Expected by 9:00 PM",
+          completed: false,
+          current: true,
+        },
         { title: "Delivered", time: "Pending", completed: false },
       ],
     };
@@ -337,7 +395,10 @@ export function StateProvider({ children }: { children: React.ReactNode }) {
   };
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-  const cartSubtotalINR = cart.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+  const cartSubtotalINR = cart.reduce(
+    (sum, item) => sum + item.product.price * item.quantity,
+    0,
+  );
 
   return (
     <StateContext.Provider

@@ -18,11 +18,24 @@ export function mapDatabaseOrApiError(error: unknown): AppError {
     };
   }
 
-  const err = error as Record<string, any>;
+  interface ErrorLike {
+    code?: string;
+    type?: string;
+    name?: string;
+    message?: string;
+    userMessage?: string;
+    status?: number;
+    meta?: { target?: string[] };
+    [key: string]: unknown;
+  }
+
+  const err = (error && typeof error === "object" ? error : {}) as ErrorLike;
 
   // Prisma Database Errors
   if (err?.code === "P2002") {
-    const target = Array.isArray(err?.meta?.target) ? err.meta.target.join(", ") : "field";
+    const target = Array.isArray(err?.meta?.target)
+      ? err.meta.target.join(", ")
+      : "field";
     return {
       code: "UNIQUE_CONSTRAINT_VIOLATION",
       message: `Unique constraint failed on: ${target}`,
@@ -36,7 +49,8 @@ export function mapDatabaseOrApiError(error: unknown): AppError {
   if (err?.code === "P2025") {
     return {
       code: "RECORD_NOT_FOUND",
-      message: "An operation failed because it depends on one or more records that were required but not found.",
+      message:
+        "An operation failed because it depends on one or more records that were required but not found.",
       userMessage: "The requested product, order, or item was not found.",
       status: 404,
       retryable: false,
@@ -58,7 +72,8 @@ export function mapDatabaseOrApiError(error: unknown): AppError {
     return {
       code: "PAYMENT_DECLINED",
       message: err.message || "Card was declined",
-      userMessage: "Your card was declined by the issuer. Please check your card number, CVV, or try another payment method.",
+      userMessage:
+        "Your card was declined by the issuer. Please check your card number, CVV, or try another payment method.",
       status: 402,
       retryable: true,
     };
@@ -68,7 +83,8 @@ export function mapDatabaseOrApiError(error: unknown): AppError {
     return {
       code: "INSUFFICIENT_FUNDS",
       message: "Card has insufficient funds",
-      userMessage: "Insufficient funds available. Please select another card or payment method.",
+      userMessage:
+        "Insufficient funds available. Please select another card or payment method.",
       status: 402,
       retryable: true,
     };
@@ -89,7 +105,8 @@ export function mapDatabaseOrApiError(error: unknown): AppError {
     return {
       code: "REQUEST_TIMEOUT",
       message: "Request timed out after 8000ms",
-      userMessage: "Network request timed out. Please check your connection and retry.",
+      userMessage:
+        "Network request timed out. Please check your connection and retry.",
       status: 408,
       retryable: true,
     };
@@ -99,7 +116,8 @@ export function mapDatabaseOrApiError(error: unknown): AppError {
     return {
       code: "OFFLINE",
       message: "Device is offline",
-      userMessage: "You are currently offline. Actions will be queued and synchronized once connection is restored.",
+      userMessage:
+        "You are currently offline. Actions will be queued and synchronized once connection is restored.",
       status: 0,
       retryable: true,
     };
@@ -108,7 +126,9 @@ export function mapDatabaseOrApiError(error: unknown): AppError {
   return {
     code: err?.code || "INTERNAL_ERROR",
     message: err?.message || "An unexpected error occurred",
-    userMessage: err?.userMessage || "Something went wrong on our end. Please refresh or try again in a moment.",
+    userMessage:
+      err?.userMessage ||
+      "Something went wrong on our end. Please refresh or try again in a moment.",
     status: err?.status || 500,
     retryable: true,
   };

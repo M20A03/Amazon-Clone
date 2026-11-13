@@ -3,14 +3,20 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Star, ShoppingCart, Check, Shield } from "lucide-react";
+import { Star, ShoppingCart } from "lucide-react";
 import { type Product } from "@/lib/data/products";
 import { useAppState } from "@/lib/state-store";
 import { formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-export function ProductCard({ product, priority = false }: { product: Product; priority?: boolean }) {
+export function ProductCard({
+  product,
+  priority = false,
+}: {
+  product: Product;
+  priority?: boolean;
+}) {
   const { addToCart, currency } = useAppState();
   const [isAdding, setIsAdding] = useState(false);
 
@@ -25,7 +31,9 @@ export function ProductCard({ product, priority = false }: { product: Product; p
   };
 
   const discountPercent = product.originalPrice
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
+    ? Math.round(
+        ((product.originalPrice - product.price) / product.originalPrice) * 100,
+      )
     : 0;
   const [imgSrc, setImgSrc] = useState(product.image);
 
@@ -34,8 +42,22 @@ export function ProductCard({ product, priority = false }: { product: Product; p
       <div>
         {/* Badges Bar */}
         <div className="flex items-center gap-1 mb-1.5 sm:mb-2 min-h-[20px] sm:min-h-[24px] flex-wrap spatial-pop">
-          {product.isBestSeller && <Badge variant="bestseller" className="text-[9px] sm:text-[10px] px-1.5 py-0.5">#1 Best Seller</Badge>}
-          {discountPercent > 0 && <Badge variant="deal" className="text-[9px] sm:text-[10px] px-1.5 py-0.5">Limited deal</Badge>}
+          {product.isBestSeller && (
+            <Badge
+              variant="bestseller"
+              className="text-[9px] sm:text-[10px] px-1.5 py-0.5"
+            >
+              #1 Best Seller
+            </Badge>
+          )}
+          {discountPercent > 0 && (
+            <Badge
+              variant="deal"
+              className="text-[9px] sm:text-[10px] px-1.5 py-0.5"
+            >
+              Limited deal
+            </Badge>
+          )}
         </div>
 
         {/* Product Image Link with 3D Pop */}
@@ -81,7 +103,9 @@ export function ProductCard({ product, priority = false }: { product: Product; p
               />
             ))}
           </div>
-          <span className="text-[10px] sm:text-xs text-text-secondary font-medium">{product.rating}</span>
+          <span className="text-[10px] sm:text-xs text-text-secondary font-medium">
+            {product.rating}
+          </span>
           <span className="text-[10px] sm:text-xs text-amazon-link hover:underline hidden sm:inline">
             ({product.reviewCount.toLocaleString()})
           </span>
@@ -106,8 +130,17 @@ export function ProductCard({ product, priority = false }: { product: Product; p
 
         {/* Prime & Stock */}
         <div className="flex items-center gap-1.5 mt-1 sm:mt-1.5 flex-wrap">
-          {product.isPrime && <Badge variant="prime" className="text-[9px] sm:text-[10px] px-1 py-0">prime</Badge>}
-          <span className="text-[10px] sm:text-xs text-text-secondary truncate">FREE One-Day</span>
+          {product.isPrime && (
+            <Badge
+              variant="prime"
+              className="text-[9px] sm:text-[10px] px-1 py-0"
+            >
+              prime
+            </Badge>
+          )}
+          <span className="text-[10px] sm:text-xs text-text-secondary truncate">
+            FREE One-Day
+          </span>
         </div>
       </div>
 
@@ -115,7 +148,11 @@ export function ProductCard({ product, priority = false }: { product: Product; p
       <div className="mt-3 sm:mt-4 pt-2 border-t border-border/50">
         {product.isService ? (
           <Link href={`/product/${product.id}`} className="w-full block">
-            <Button variant="secondary" size="sm" className="w-full text-xs py-1.5">
+            <Button
+              variant="secondary"
+              size="sm"
+              className="w-full text-xs py-1.5"
+            >
               Service Info
             </Button>
           </Link>

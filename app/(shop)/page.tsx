@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { PRODUCTS, type Product } from "@/lib/data/products";
+import { PRODUCTS } from "@/lib/data/products";
 import { ProductGrid } from "@/components/product/product-grid";
 import { ProductCardSkeleton } from "@/components/ui/skeleton";
 import { Sparkles, ShieldCheck, Zap, ArrowRight } from "lucide-react";
@@ -25,10 +25,12 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
   // 1. Filter by category
   if (categoryFilter && categoryFilter !== "All") {
     if (categoryFilter === "Deals") {
-      filteredProducts = filteredProducts.filter((p) => p.category === "Deals" || p.originalPrice);
+      filteredProducts = filteredProducts.filter(
+        (p) => p.category === "Deals" || p.originalPrice,
+      );
     } else {
       filteredProducts = filteredProducts.filter(
-        (p) => p.category.toLowerCase() === categoryFilter.toLowerCase()
+        (p) => p.category.toLowerCase() === categoryFilter.toLowerCase(),
       );
     }
   }
@@ -39,7 +41,9 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
       const matchTitle = p.title.toLowerCase().includes(searchQuery);
       const matchCategory = p.category.toLowerCase().includes(searchQuery);
       const matchDesc = p.description.toLowerCase().includes(searchQuery);
-      const matchFeatures = p.features.some((f) => f.toLowerCase().includes(searchQuery));
+      const matchFeatures = p.features.some((f) =>
+        f.toLowerCase().includes(searchQuery),
+      );
       return matchTitle || matchCategory || matchDesc || matchFeatures;
     });
   }
@@ -65,10 +69,14 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                 Great Republic Day Sale Live Now
               </div>
               <h1 className="text-xl sm:text-3xl lg:text-5xl font-black leading-tight tracking-tight">
-                Up to 60% off on <span className="text-amazon-amber">Premium Electronics</span> & Smart Home
+                Up to 60% off on{" "}
+                <span className="text-amazon-amber">Premium Electronics</span> &
+                Smart Home
               </h1>
               <p className="text-xs sm:text-sm md:text-base text-gray-300 max-w-xl mx-auto md:mx-0">
-                Experience next-generation noise canceling, M3 chips, smart appliances, and wedding registries with guaranteed same-day Prime delivery.
+                Experience next-generation noise canceling, M3 chips, smart
+                appliances, and wedding registries with guaranteed same-day
+                Prime delivery.
               </p>
               <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-1 sm:pt-2">
                 <Link
