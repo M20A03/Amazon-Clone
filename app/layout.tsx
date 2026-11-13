@@ -25,19 +25,22 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Amazon.in: Online Shopping India - Buy Mobiles, Laptops, Cameras, Books, Watches, Apparel, Shoes and E-Gift Cards.",
-    template: "%s | Amazon.in",
+    default: "Amazon Clone — Educational Portfolio Demo | by Mayank Raj",
+    template: "%s | Amazon Clone Demo",
   },
   description:
-    "Online Shopping India - Buy mobiles, laptops, cameras, books, watches, apparel, shoes and e-Gift Cards. Free Shipping & Cash on Delivery Available.",
-  keywords: ["Amazon", "Shopping", "Electronics", "Deals", "Online Shopping", "India"],
-  authors: [{ name: "Amazon Clone Enterprise" }],
+    "An open-source educational e-commerce clone built with Next.js, React, and Tailwind CSS for portfolio showcase. Not affiliated with or endorsed by Amazon.com, Inc.",
+  keywords: [
+    "Portfolio",
+    "Next.js",
+    "React",
+    "E-Commerce Demo",
+    "Educational Clone",
+  ],
+  authors: [{ name: "Mayank Raj" }],
   robots: {
     index: true,
     follow: true,
-  },
-  icons: {
-    icon: "https://www.vectorlogo.zone/logos/amazon/amazon-ar21.svg",
   },
 };
 
@@ -52,6 +55,13 @@ export default function RootLayout({
         <ThemeScript />
       </head>
       <body className="min-h-screen flex flex-col font-sans bg-background text-text-primary antialiased">
+        <div className="bg-amber-600 text-white text-[11px] sm:text-xs px-3 py-1.5 text-center font-medium shadow-sm flex items-center justify-center gap-1.5 z-50 relative">
+          <span className="font-bold">⚠️ PORTFOLIO DEMO:</span>
+          <span>
+            Educational project by Mayank Raj. Not affiliated with Amazon.com.
+            Simulated sandbox data only.
+          </span>
+        </div>
         <ThemeProvider>
           <StateProvider>
             {children}

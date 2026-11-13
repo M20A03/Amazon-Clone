@@ -29,42 +29,134 @@ export function Footer() {
       {/* Main Footer Links */}
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-8 sm:py-12 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-sm">
         <div>
-          <h3 className="font-bold text-xs sm:text-base mb-2 sm:mb-3 text-white">Get to Know Us</h3>
+          <h3 className="font-bold text-xs sm:text-base mb-2 sm:mb-3 text-white">
+            Get to Know Us
+          </h3>
           <ul className="space-y-1.5 sm:space-y-2 text-[11px] sm:text-xs text-gray-300">
-            <li><Link href="/" className="hover:underline">About Amazon</Link></li>
-            <li><Link href="/" className="hover:underline">Careers</Link></li>
-            <li><Link href="/" className="hover:underline">Press Releases</Link></li>
-            <li><Link href="/" className="hover:underline">Amazon Science</Link></li>
+            <li>
+              <Link href="/" className="hover:underline">
+                About Amazon
+              </Link>
+            </li>
+            <li>
+              <Link href="/" className="hover:underline">
+                Careers
+              </Link>
+            </li>
+            <li>
+              <Link href="/" className="hover:underline">
+                Press Releases
+              </Link>
+            </li>
+            <li>
+              <Link href="/" className="hover:underline">
+                Amazon Science
+              </Link>
+            </li>
           </ul>
         </div>
 
         <div>
-          <h3 className="font-bold text-xs sm:text-base mb-2 sm:mb-3 text-white">Connect with Us</h3>
+          <h3 className="font-bold text-xs sm:text-base mb-2 sm:mb-3 text-white">
+            Connect with Us
+          </h3>
           <ul className="space-y-1.5 sm:space-y-2 text-[11px] sm:text-xs text-gray-300">
-            <li><a href="https://ypr.christuniversity.in/" target="_blank" rel="noreferrer" className="hover:underline">Christ University YPR</a></li>
-            <li><a href="https://www.instagram.com/_awaisthetics_" target="_blank" rel="noreferrer" className="hover:underline">_awaisthetics_</a></li>
-            <li><a href="https://www.instagram.com/subh_notokay" target="_blank" rel="noreferrer" className="hover:underline">subh_notokay</a></li>
-            <li><a href="https://www.instagram.com/nihittt10" target="_blank" rel="noreferrer" className="hover:underline">nihittt10</a></li>
+            <li>
+              <a
+                href="https://ypr.christuniversity.in/"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:underline"
+              >
+                Christ University YPR
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.instagram.com/_awaisthetics_"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:underline"
+              >
+                _awaisthetics_
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.instagram.com/subh_notokay"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:underline"
+              >
+                subh_notokay
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.instagram.com/nihittt10"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:underline"
+              >
+                nihittt10
+              </a>
+            </li>
           </ul>
         </div>
 
         <div>
-          <h3 className="font-bold text-xs sm:text-base mb-2 sm:mb-3 text-white">Make Money with Us</h3>
+          <h3 className="font-bold text-xs sm:text-base mb-2 sm:mb-3 text-white">
+            Make Money with Us
+          </h3>
           <ul className="space-y-1.5 sm:space-y-2 text-[11px] sm:text-xs text-gray-300">
-            <li><Link href="/" className="hover:underline">Sell on Amazon</Link></li>
-            <li><Link href="/" className="hover:underline">Protect Brand</Link></li>
-            <li><Link href="/" className="hover:underline">Amazon Global</Link></li>
-            <li><Link href="/" className="hover:underline">Fulfillment</Link></li>
+            <li>
+              <Link href="/" className="hover:underline">
+                Sell on Amazon
+              </Link>
+            </li>
+            <li>
+              <Link href="/" className="hover:underline">
+                Protect Brand
+              </Link>
+            </li>
+            <li>
+              <Link href="/" className="hover:underline">
+                Amazon Global
+              </Link>
+            </li>
+            <li>
+              <Link href="/" className="hover:underline">
+                Fulfillment
+              </Link>
+            </li>
           </ul>
         </div>
 
         <div>
-          <h3 className="font-bold text-xs sm:text-base mb-2 sm:mb-3 text-white">Let Us Help You</h3>
+          <h3 className="font-bold text-xs sm:text-base mb-2 sm:mb-3 text-white">
+            Let Us Help You
+          </h3>
           <ul className="space-y-1.5 sm:space-y-2 text-[11px] sm:text-xs text-gray-300">
-            <li><Link href="/orders" className="hover:underline">Your Orders</Link></li>
-            <li><Link href="/customer-service" className="hover:underline">Returns</Link></li>
-            <li><Link href="/customer-service" className="hover:underline">Protection</Link></li>
-            <li><Link href="/customer-service" className="hover:underline">Help Service</Link></li>
+            <li>
+              <Link href="/orders" className="hover:underline">
+                Your Orders
+              </Link>
+            </li>
+            <li>
+              <Link href="/customer-service" className="hover:underline">
+                Returns
+              </Link>
+            </li>
+            <li>
+              <Link href="/customer-service" className="hover:underline">
+                Protection
+              </Link>
+            </li>
+            <li>
+              <Link href="/customer-service" className="hover:underline">
+                Help Service
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
@@ -72,20 +164,31 @@ export function Footer() {
       {/* Region & Language Selector Bar */}
       <div className="border-t border-amazon-lightNavy py-6 sm:py-8 text-center bg-amazon-navy px-4">
         <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs">
-          <Link href="/" className="font-black text-lg sm:text-xl tracking-tighter">
-            amazon<span className="text-amazon-amber text-xs">.in</span>
+          <Link
+            href="/"
+            className="font-black text-lg sm:text-xl tracking-tighter flex items-center gap-1"
+          >
+            <span>amzn</span>
+            <span className="text-amazon-amber">clone</span>
+            <span className="bg-amazon-amber/20 border border-amazon-amber/40 text-amazon-amber text-[10px] font-bold px-1 py-0.5 rounded uppercase">
+              Demo
+            </span>
           </Link>
           <button
             onClick={() => setIsLocationModalOpen(true)}
             className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 sm:py-1.5 border border-gray-600 rounded hover:border-gray-400 text-gray-300 text-xs"
           >
             <Globe className="w-3.5 h-3.5" />
-            <span>{country} ({currency})</span>
+            <span>
+              {country} ({currency})
+            </span>
           </button>
         </div>
 
         <p className="text-[10px] sm:text-[11px] text-gray-400 mt-3 sm:mt-4">
-          © 1996-{new Date().getFullYear()}, Amazon.com, Inc. or its affiliates. Modern Enterprise Next.js 15 Edition.
+          Educational Portfolio Project by Mayank Raj • Not affiliated with or
+          endorsed by Amazon.com, Inc. • All product trademarks belong to their
+          respective owners.
         </p>
       </div>
     </footer>

@@ -47,14 +47,24 @@ function SignupForm() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-background">
       <Link href="/" className="mb-5 sm:mb-6">
-        <div className="flex items-center gap-0.5 font-black text-2xl sm:text-3xl tracking-tighter text-text-primary">
-          <span>amazon</span>
-          <span className="text-amazon-orange text-xs sm:text-sm font-bold pt-1 sm:pt-2">.in</span>
+        <div className="flex items-center gap-1.5 font-black text-2xl sm:text-3xl tracking-tighter text-text-primary">
+          <span>amzn</span>
+          <span className="text-amazon-orange">clone</span>
+          <span className="bg-amazon-amber/20 border border-amazon-amber/40 text-amazon-amber text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider">
+            Demo
+          </span>
         </div>
       </Link>
 
       <div className="w-full max-w-sm bg-surface rounded-xl border border-border p-5 sm:p-6 shadow-sm">
-        <h1 className="text-xl sm:text-2xl font-semibold text-text-primary mb-4 sm:mb-5">Create Account</h1>
+        <div className="mb-4 p-2.5 rounded bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-700 dark:text-amber-300">
+          <strong>⚠️ Portfolio Demo:</strong> This is an educational sandbox. Do{" "}
+          <strong>not</strong> enter real passwords. Any mock account works.
+        </div>
+
+        <h1 className="text-xl sm:text-2xl font-semibold text-text-primary mb-4 sm:mb-5">
+          Create Account
+        </h1>
 
         {error && (
           <div className="p-3 mb-4 rounded-lg bg-status-error/10 border border-status-error/30 text-xs text-status-error font-medium">
@@ -121,7 +131,8 @@ function SignupForm() {
         </form>
 
         <p className="text-[11px] text-text-secondary mt-4 leading-relaxed">
-          By creating an account, you agree to Amazon&apos;s Conditions of Use and Privacy Notice.
+          By creating an account, you agree to Amazon&apos;s Conditions of Use
+          and Privacy Notice.
         </p>
 
         <hr className="my-4 sm:my-5 border-border" />

@@ -35,8 +35,12 @@ export function Navbar() {
   } = useAppState();
   const { resolvedTheme, toggleTheme } = useTheme();
 
-  const [searchCategory, setSearchCategory] = useState(searchParams.get("category") || "All");
-  const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
+  const [searchCategory, setSearchCategory] = useState(
+    searchParams.get("category") || "All",
+  );
+  const [searchQuery, setSearchQuery] = useState(
+    searchParams.get("search") || "",
+  );
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const [, startTransition] = useTransition();
@@ -79,7 +83,6 @@ export function Navbar() {
             1. Desktop & Tablet Top Bar (md:flex) / Mobile Row 1 (flex md:hidden)
            ========================================================================= */}
         <div className="max-w-[1500px] mx-auto px-3 sm:px-4 h-14 md:h-16 flex items-center justify-between gap-2 md:gap-4">
-          
           {/* Left section: Hamburger (Mobile) + Amazon Logo */}
           <div className="flex items-center gap-1 sm:gap-2">
             <button
@@ -92,13 +95,16 @@ export function Navbar() {
 
             <Link
               href="/"
-              className="flex items-center px-1 sm:px-2 py-1 border border-transparent hover:border-white rounded focus-visible:border-amazon-amber"
-              aria-label="Amazon Home"
+              className="flex items-center gap-1.5 px-1 sm:px-2 py-1 border border-transparent hover:border-white rounded focus-visible:border-amazon-amber"
+              aria-label="Amazon Clone Demo Home"
             >
               <div className="flex items-center gap-0.5 font-black text-xl sm:text-2xl tracking-tighter">
-                <span>amazon</span>
-                <span className="text-amazon-amber text-xs font-bold pt-1 sm:pt-2">.in</span>
+                <span>amzn</span>
+                <span className="text-amazon-amber">clone</span>
               </div>
+              <span className="bg-amazon-amber/20 border border-amazon-amber/40 text-amazon-amber text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider">
+                Demo
+              </span>
             </Link>
           </div>
 
@@ -111,7 +117,9 @@ export function Navbar() {
             <MapPin className="w-4 h-4 text-amazon-amber shrink-0 mt-2" />
             <div className="flex flex-col text-xs leading-tight">
               <span className="text-gray-400">Deliver to</span>
-              <span className="font-bold text-white max-w-[100px] truncate">{country}</span>
+              <span className="font-bold text-white max-w-[100px] truncate">
+                {country}
+              </span>
             </div>
           </button>
 
@@ -180,9 +188,12 @@ export function Navbar() {
                   onClick={() => setIsAccountMenuOpen(!isAccountMenuOpen)}
                 >
                   <div className="hidden sm:block">
-                    <div className="text-[11px] text-gray-300 leading-tight">Hello, {user.name}</div>
+                    <div className="text-[11px] text-gray-300 leading-tight">
+                      Hello, {user.name}
+                    </div>
                     <div className="text-xs font-bold text-white flex items-center gap-0.5">
-                      Account & Lists <ChevronDown className="w-3 h-3 text-gray-400" />
+                      Account & Lists{" "}
+                      <ChevronDown className="w-3 h-3 text-gray-400" />
                     </div>
                   </div>
                   <User className="w-5 h-5 sm:hidden text-gray-200" />
@@ -193,8 +204,12 @@ export function Navbar() {
                   className="flex items-center sm:flex-col text-left px-2 py-1 border border-transparent hover:border-white rounded"
                   aria-label="Sign in"
                 >
-                  <span className="hidden sm:inline text-[11px] text-gray-300 leading-tight">Hello, sign in</span>
-                  <span className="hidden sm:inline text-xs font-bold text-white">Account & Lists</span>
+                  <span className="hidden sm:inline text-[11px] text-gray-300 leading-tight">
+                    Hello, sign in
+                  </span>
+                  <span className="hidden sm:inline text-xs font-bold text-white">
+                    Account & Lists
+                  </span>
                   <User className="w-5 h-5 sm:hidden text-gray-200" />
                 </Link>
               )}
@@ -236,7 +251,9 @@ export function Navbar() {
               href="/orders"
               className="hidden md:flex flex-col text-left px-2 py-1 border border-transparent hover:border-white rounded"
             >
-              <span className="text-[11px] text-gray-300 leading-tight">Returns</span>
+              <span className="text-[11px] text-gray-300 leading-tight">
+                Returns
+              </span>
               <span className="text-xs font-bold text-white">& Orders</span>
             </Link>
 
@@ -269,7 +286,9 @@ export function Navbar() {
                   {cartCount}
                 </span>
               </div>
-              <span className="hidden sm:inline font-bold text-sm pt-2">Cart</span>
+              <span className="hidden sm:inline font-bold text-sm pt-2">
+                Cart
+              </span>
             </button>
           </div>
         </div>
@@ -332,7 +351,10 @@ export function Navbar() {
       </header>
 
       {/* Slide-in Mobile Drawer */}
-      <MobileDrawer isOpen={isMobileDrawerOpen} onClose={() => setIsMobileDrawerOpen(false)} />
+      <MobileDrawer
+        isOpen={isMobileDrawerOpen}
+        onClose={() => setIsMobileDrawerOpen(false)}
+      />
     </>
   );
 }

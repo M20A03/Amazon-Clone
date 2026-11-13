@@ -133,11 +133,12 @@ export default function CheckoutPage() {
         <div className="max-w-[1200px] mx-auto flex items-center justify-between">
           <Link
             href="/"
-            className="flex items-center gap-0.5 font-black text-xl sm:text-2xl tracking-tighter"
+            className="flex items-center gap-1.5 font-black text-xl sm:text-2xl tracking-tighter"
           >
-            <span>amazon</span>
-            <span className="text-amazon-amber text-xs font-bold pt-1 sm:pt-2">
-              .in
+            <span>amzn</span>
+            <span className="text-amazon-amber">clone</span>
+            <span className="bg-amazon-amber/20 border border-amazon-amber/40 text-amazon-amber text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider">
+              Demo
             </span>
           </Link>
 
@@ -161,6 +162,14 @@ export default function CheckoutPage() {
       <main className="flex-1 max-w-[1200px] w-full mx-auto p-3 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8">
         {/* Left Column: Checkout Forms */}
         <div className="lg:col-span-8 space-y-4 sm:space-y-6">
+          <div className="p-3 rounded-lg bg-amber-500/10 border border-amber-500/30 text-xs text-amber-700 dark:text-amber-300 flex items-center gap-2">
+            <span className="font-bold">⚠️ Simulated Demo Checkout:</span>
+            <span>
+              This is an educational sandbox. No real monetary transactions or
+              charges will occur. Mock data is permitted.
+            </span>
+          </div>
+
           {submitError && (
             <div className="p-3.5 rounded-lg bg-status-error/10 border border-status-error/30 flex items-start gap-3 text-xs text-status-error font-medium">
               <AlertCircle className="w-5 h-5 shrink-0" />
