@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Active_200_OK-00C853?style=for-the-badge&logo=vercel&logoColor=white)](https://shadow-fox-e-commerce.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Active_200_OK-00C853?style=for-the-badge&logo=vercel&logoColor=white)](https://amazonclone-dusky.vercel.app/)
 ![Platform](https://img.shields.io/badge/Platform-Vercel-0070F3?style=for-the-badge)
 [![Author](https://img.shields.io/badge/Author-Mayank_Raj-orange?style=for-the-badge&logo=github)](https://github.com/M20A03)
 ![Maintenance](https://img.shields.io/badge/Maintained-Yes-success?style=for-the-badge)
@@ -21,7 +21,7 @@ High-performance enterprise Next.js e-commerce storefront featuring spatial card
 Experience the live, active production deployment in your browser:
 
 > **Verified Active Production Link:**  
-> **[https://shadow-fox-e-commerce.vercel.app/](https://shadow-fox-e-commerce.vercel.app/)**
+> **[https://amazonclone-dusky.vercel.app/](https://amazonclone-dusky.vercel.app/)**
 
 _Status:_ `200 OK: Production Active & Connected`
 
